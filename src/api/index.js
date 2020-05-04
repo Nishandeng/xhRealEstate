@@ -1,9 +1,32 @@
-import request from '../utils/request';
+import axios from 'axios';
+import fns from './fns';
+function api(Vue) {
+  if (api.installed) {
+    return
+  }
+  api.installed = true
 
-export const fetchData = query => {
-    return request({
-        url: './table.json',
-        method: 'get',
-        params: query
-    });
-};
+  Vue.axios = axios;
+
+  Object.defineProperties(Vue.prototype, {
+    axios: {
+      get() {
+        return axios
+      }
+    },
+
+    $http: {
+      get() {
+        return axios
+      }
+    },
+
+    $api:{
+      get(){
+        return fns;
+      }
+    }
+  })
+}
+
+export default api;
