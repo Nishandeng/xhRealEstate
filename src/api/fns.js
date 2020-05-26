@@ -4,7 +4,7 @@ import {END_POINT, POST, GET, APIS} from './paths';
 
 const fns = {};
 
-const TOKEN_NAME = 'Fy-Access-Token';
+// const TOKEN_NAME = 'Access-Token';
 
 const axios = Axios.create({
     baseURL: END_POINT,
@@ -17,15 +17,15 @@ const axios = Axios.create({
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 //更新token
-fns.updateToken = function (token) {
-    if (!token) {
-        delete axios.defaults.headers.common[TOKEN_NAME];
-    } else {
-        axios.defaults.headers.common[TOKEN_NAME] = token;
-    }
-};
+// fns.updateToken = function (token) {
+//     if (!token) {
+//         delete axios.defaults.headers.common[TOKEN_NAME];
+//     } else {
+//         axios.defaults.headers.common[TOKEN_NAME] = token;
+//     }
+// };
 
-fns.updateToken(localStorage.getItem('sstoken'));
+// fns.updateToken(localStorage.getItem('sstoken'));
 
 
 async function _fetch(data, options) {

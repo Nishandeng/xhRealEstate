@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">疫苗空间后台管理系统</div>
+        <div class="logo">益苗荟后台管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -29,7 +29,7 @@
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator">
-                    <img src="../../assets/img/img.jpg" />
+                    <img src="../../assets/img/head.jpg" />
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
@@ -53,7 +53,7 @@ import bus from '../common/bus';
 export default {
     data() {
         return {
-            collapse: false,
+            collapse: true,
             fullscreen: false,
             name: 'linxin',
             message: 2
@@ -70,6 +70,7 @@ export default {
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
+                localStorage.removeItem('sstoken');
                 this.$router.push('/login');
             }
         },

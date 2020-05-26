@@ -26,8 +26,8 @@ export default new Router({
                 },
                 {
                     path: '/table',
-                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
-                    meta: { title: '用户信息管理' }
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/Reports.vue'),
+                    meta: { title: '数据报表' }
                 },
                 {
                     path: '/tabs',
@@ -56,6 +56,12 @@ export default new Router({
                     path: '/charts',
                     component: () => import(/* webpackChunkName: "chart" */ '../components/page/BaseCharts.vue'),
                     meta: { title: 'schart图表' }
+                },
+                {
+                    // vue-schart组件
+                    path: '/g2',
+                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/G2Charts.vue'),
+                    meta: { title: 'g2图表' }
                 },
                 {
                     // 拖拽列表组件
@@ -100,6 +106,7 @@ export default new Router({
         },
         {
             path: '/login',
+            name:'Login',
             component: () => import(/* webpackChunkName: "login" */ '../components/page/Login.vue'),
             meta: { title: '登录' }
         },

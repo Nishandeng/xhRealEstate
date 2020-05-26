@@ -1,246 +1,95 @@
 <template>
-    <div>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height:252px;">
-                    <div class="user-info">
-                        <img src="../../assets/img/img.jpg" class="user-avator" alt/>
-                        <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
+    <el-row :gutter="10">
+        <el-col :span="24">
+            <el-row :gutter="20" class="mgb20">
+                <el-col :span="6">
+                    <el-card shadow="hover" :body-style="{padding: '0px'}">
+                        <div class="grid-content grid-con-1">
+                            <i class="el-icon-user grid-con-icon"></i>
+                            <div class="grid-cont-right">
+                                <div class="grid-num">{{summaryInfo.commitTotal}}</div>
+                                <div>信息填报人数</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录时间：
-                        <span>2020-05-02</span>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录地点：
-                        <span>浙江.杭州</span>
-                    </div>
-                </el-card>
-                <el-card shadow="hover" style="height:252px;">
-                    <div slot="header" class="clearfix">
-                        <span>预留展示Card</span>
-                    </div>
-                    <!--TODO 预留展示信息-->
-                </el-card>
-            </el-col>
-            <el-col :span="16">
-                <el-row :gutter="20" class="mgb20">
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-1">
-                                <i class="el-icon-user grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">1</div>
-                                    <div>用户访问量</div>
-                                </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card shadow="hover" :body-style="{padding: '0px'}">
+                        <div class="grid-content grid-con-1">
+                            <i class="el-icon-s-comment grid-con-icon"></i>
+                            <div class="grid-cont-right">
+                                <div class="grid-num">{{summaryInfo.inquiryTotal}}</div>
+                                <div class="grid-num1">{{summaryInfo.inquiryRate}}%</div>
+                                <div>问询人数</div>
                             </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-2">
-                                <i class="el-icon-message-solid grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">1</div>
-                                    <div>系统消息</div>
-                                </div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card shadow="hover" :body-style="{padding: '0px'}">
+                        <div class="grid-content grid-con-1">
+                            <i class="el-icon-s-order grid-con-icon"></i>
+                            <div class="grid-cont-right">
+                                <div class="grid-num">{{summaryInfo.injectTotal}}</div>
+                                <div class="grid-num1">{{summaryInfo.injectRate}}%</div>
+                                <div>补登人数</div>
                             </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-3">
-                                <i class="el-icon-s-marketing grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">50</div>
-                                    <div>数量</div>
-                                </div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card shadow="hover" :body-style="{padding: '0px'}">
+                        <div class="grid-content grid-con-1">
+                            <i class="el-icon-s-release grid-con-icon"></i>
+                            <div class="grid-cont-right">
+                                <div class="grid-num">{{summaryInfo.feedbackTotal}}</div>
+                                <div class="grid-num1">{{summaryInfo.feedbackRate}}%</div>
+                                <div>不良反馈人数</div>
                             </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-                <el-card shadow="hover" style="height:403px;">
-                    <div slot="header" class="clearfix">
-                        <span>待办事项</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-                    </div>
-                    <el-table :show-header="false" :data="todoList" style="width:100%;">
-                        <el-table-column width="40">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
-                        <el-table-column>
-                            <template slot-scope="scope">
-                                <div
-                                        class="todo-item"
-                                        :class="{'todo-item-del': scope.row.status}"
-                                >{{scope.row.title}}
-                                </div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template>
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row>
-    </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <el-card shadow="hover" header="数据统计图表" >
+                <g2 :summaryData="summaryInfo"></g2>
+            </el-card>
+        </el-col>
+    </el-row>
 </template>
 
 <script>
-    import Schart from 'vue-schart';
+    import G2Charts from '../page/G2Charts'
 
     export default {
         name: 'dashboard',
+
         data() {
             return {
                 name: localStorage.getItem('ms_username'),
-                todoList: [
-                    {
-                        title: '今天要修复100个bug',
-                        status: false
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: false
-                    }
-                ],
-                data: [
-                    {
-                        name: '2018/09/04',
-                        value: 1083
-                    },
-                    {
-                        name: '2018/09/05',
-                        value: 941
-                    },
-                    {
-                        name: '2018/09/06',
-                        value: 1139
-                    },
-                    {
-                        name: '2018/09/07',
-                        value: 816
-                    },
-                    {
-                        name: '2018/09/08',
-                        value: 327
-                    },
-                    {
-                        name: '2018/09/09',
-                        value: 228
-                    },
-                    {
-                        name: '2018/09/10',
-                        value: 1065
-                    }
-                ],
-                options: {
-                    type: 'bar',
-                    title: {
-                        text: '最近一周各品类销售图'
-                    },
-                    xRorate: 25,
-                    labels: ['周一', '周二', '周三', '周四', '周五'],
-                    datasets: [
-                        {
-                            label: '新冠疫苗',
-                            data: [234, 278, 270, 190, 230]
-                        },
-                        {
-                            label: 'xxx疫苗',
-                            data: [164, 178, 190, 135, 160]
-                        },
-                        {
-                            label: '###疫苗',
-                            data: [144, 198, 150, 235, 120]
-                        }
-                    ]
-                },
-                options2: {
-                    type: 'line',
-                    title: {
-                        text: '最近几个月各品类疫苗消耗趋势图'
-                    },
-                    labels: ['6月', '7月', '8月', '9月', '10月'],
-                    datasets: [
-                        {
-                            label: '新冠疫苗',
-                            data: [234, 278, 270, 190, 230]
-                        },
-                        {
-                            label: 'xxxx疫苗',
-                            data: [164, 178, 150, 135, 160]
-                        },
-                        {
-                            label: '####疫苗',
-                            data: [74, 118, 200, 235, 90]
-                        }
-                    ]
-                }
+                summaryInfo: {},
             };
         },
         components: {
-            Schart
+            "g2": G2Charts
         },
-        computed: {
-            role() {
-                return this.name === 'admin' ? '超级管理员' : '普通用户';
-            }
+        created() {
+            this.getReport();
         },
-        // created() {
-        //     this.handleListener();
-        //     this.changeDate();
-        // },
-        // activated() {
-        //     this.handleListener();
-        // },
-        // deactivated() {
-        //     window.removeEventListener('resize', this.renderChart);
-        //     bus.$off('collapse', this.handleBus);
-        // },
         methods: {
-            changeDate() {
-                const now = new Date().getTime();
-                this.data.forEach((item, index) => {
-                    const date = new Date(now - (6 - index) * 86400000);
-                    item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-                });
+            async getReport() {
+                let res = await this.$api.getSummaryInfo();
+                const {code, msg, content} = res.data;
+                if (code === 0) {
+                    this.summaryInfo = content;
+                }else if(code == 5001){
+                    this.message.error(msg);
+                    this.$router.replace("/login").catch(err=>err);
+                }else {
+                    this.message.error(msg);
+                }
+                console.log(code, msg, content);
+
             }
-            // handleListener() {
-            //     bus.$on('collapse', this.handleBus);
-            //     // 调用renderChart方法对图表进行重新渲染
-            //     window.addEventListener('resize', this.renderChart);
-            // },
-            // handleBus(msg) {
-            //     setTimeout(() => {
-            //         this.renderChart();
-            //     }, 200);
-            // },
-            // renderChart() {
-            //     this.$refs.bar.renderChart();
-            //     this.$refs.line.renderChart();
-            // }
         }
     };
 </script>
@@ -254,7 +103,7 @@
     .grid-content {
         display: flex;
         align-items: center;
-        height: 100px;
+        height: 120px;
     }
 
     .grid-cont-right {
@@ -268,13 +117,16 @@
         font-size: 30px;
         font-weight: bold;
     }
+    .grid-num1 {
+        font-size: 15px;
+    }
 
     .grid-con-icon {
         font-size: 50px;
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         text-align: center;
-        line-height: 100px;
+        line-height: 120px;
         color: #fff;
     }
 

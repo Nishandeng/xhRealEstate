@@ -8,10 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@antv/data-set": "^0.11.4",
+    "@antv/g2": "^3.5.16",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.4",
+    "dataset": "^0.3.2",
+    "echarts": "^4.7.0",
     "element-ui": "^2.13.1",
+    "js-md5": "^0.7.3",
     "mavon-editor": "^2.9.0",
     "vue": "^2.6.11",
     "vue-cropperjs": "^4.1.0",

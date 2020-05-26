@@ -1,12 +1,13 @@
 export const POST = 'post';
 export const GET = 'get';
-export const END_POINT = './';
-
-
-
+// export const END_POINT = 'https://wxapp.sinovacbio.cn/s';
+export const END_POINT = 'http://localhost:8080';
 export const APIS ={
-  login: ['advOwnerUser/login', POST],
-  logout: ['advOwnerUser/logout', POST],
-  fetchData:['table.json',GET]
+  login: ['/login/login', GET],
+
+  //报表
+  getSummaryInfo:["/report/summaryInfo",GET],
+  getTimesInfo:["/report/timesInfo",POST],
+  getFeedbackList:["/report/feedbackPageList",POST]
 
 };

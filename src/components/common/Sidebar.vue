@@ -53,119 +53,12 @@
 
 <script>
     import bus from '../common/bus';
-
+    import sideBaritems from '../common/sideBarItems'
     export default {
         data() {
             return {
                 collapse: false,
-                items: [
-                    {
-                        icon: 'el-icon-share',
-                        index: 'dashboard',
-                        title: '系统首页'
-                    },
-                    {
-                        icon: 'el-icon-share',
-                        index: '2',
-                        title: '用户信息管理',
-                        subs: [
-                            {
-                                index: 'table',
-                                title: '用户列表'
-                            },
-                            {
-                                index: 'form',
-                                title: '添加用户'
-                            }
-                        ]
-                    },
-                    {
-                        icon: 'el-icon-share',
-                        index: '3',
-                        title: '疫苗知识管理',
-                        subs: [
-                            {
-                                index: 'editor',
-                                title: '添加文章'
-                            },
-                            {
-                                index: 'upload',
-                                title: '文件上传'
-                            }
-                        ]
-                    },
-                    {
-                        icon: 'el-icon-share',
-                        index: '4',
-                        title: '角色权限管理',
-                    },
-                    {
-                        icon: 'el-icon-share',
-                        index: '5',
-                        title: '系统管理',
-                        subs:[
-                            {
-                                index: 'permission',
-                                title: '权限测试'
-                            },
-                            {
-                                index: '404',
-                                title: '404页面'
-                            }
-                        ]
-                    },
-
-                    {
-                        icon: 'el-icon-share',
-                        index: '7',
-                        title: '组件',
-                        subs: [
-                            {
-                                icon: 'el-icon-share',
-                                index: 'tabs',
-                                title: 'tab选项卡'
-                            },
-                            {
-                                icon: 'el-icon-share',
-                                index: 'icon',
-                                title: '自定义图标'
-                            },
-                            {
-                                icon: 'el-icon-pie-chart',
-                                index: 'charts',
-                                title: 'schart图表'
-                            },
-                            {
-                                index: 'permission',
-                                title: '权限测试'
-                            },
-                            {
-                                index: '404',
-                                title: '404页面'
-                            },
-                            {
-                                icon: 'el-icon-share',
-                                index: 'i18n',
-                                title: '国际化功能'
-                            },
-                            {
-                                icon: 'el-icon-rank',
-                                index: '6',
-                                title: '拖拽组件',
-                                subs: [
-                                    {
-                                        index: 'drag',
-                                        title: '拖拽列表'
-                                    },
-                                    {
-                                        index: 'dialog',
-                                        title: '拖拽弹框'
-                                    }
-                                ]
-                            },
-                        ]
-                    }
-                ]
+                items: sideBaritems
             };
         },
         computed: {
@@ -198,7 +91,7 @@
     }
 
     .sidebar-el-menu:not(.el-menu--collapse) {
-        width: 250px;
+        width: 150px;
     }
 
     .sidebar > ul {
