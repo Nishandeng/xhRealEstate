@@ -67,9 +67,19 @@
                     header-cell-class-name="table-header"
                     @selection-change="handleSelectionChange"
             >
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
+<!--                <el-table-column type="selection" width="55" align="center"></el-table-column>-->
                 <el-table-column prop="userName" label="用户姓名" width="90" align="center"></el-table-column>
                 <el-table-column prop="userMobile" label="用户电话" width="120"></el-table-column>
+                <el-table-column  label="出生日期" width="130">
+                    <template slot-scope="scope">
+                        <span>{{$dateUtils.dateFormat(scope.row.birthday,'Y-m-d')}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column  label="接种日期" width="130">
+                    <template slot-scope="scope">
+                        <span>{{$dateUtils.dateFormat(scope.row.injectTime,'Y-m-d')}}</span>
+                    </template>
+                </el-table-column>
 <!--                <el-table-column prop="vaccineTypeName" label="疫苗名称" width="90"></el-table-column>-->
                 <el-table-column prop="times" align="center" label="接种次数" width="80"></el-table-column>
                 <el-table-column  align="center" label="是否不良反应" width="180">
@@ -78,7 +88,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column label="提交时间" width="165">
+                <el-table-column label="提交时间" width="150">
                     <template slot-scope="scope">
                         <span>{{$dateUtils.dateFormat(scope.row.commitTime)}}</span>
                     </template>
@@ -282,8 +292,8 @@
         margin-bottom: 20px;
     }
     .drawerBoday{
-        padding: 20px 0;
-        height: 660px;
+        padding: 20px 0 30px 0;
+        height: 620px;
         overflow-y: scroll;
     }
     .spanDev{

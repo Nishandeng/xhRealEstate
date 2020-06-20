@@ -8,9 +8,9 @@
       </el-col>
         <el-col :span="12" >
             <el-row>
-                <el-col>
-                    <el-row>
-                        <el-col :span="8">
+                <el-col >
+                    <el-row >
+                        <el-col :span="6" offset="3">
                             <el-date-picker
                                     type="date"
                                     placeholder="选择日期"
@@ -20,7 +20,7 @@
                             />
                         </el-col>
                         <el-col :span="1" class="line">-</el-col>
-                        <el-col :span="8">
+                        <el-col :span="6">
                             <el-date-picker
                                     type="date"
                                     placeholder="选择日期"
@@ -29,7 +29,9 @@
                                     style="width: 100%;"
                             />
                         </el-col>
-                        <el-button type="primary" class="searchBtn" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                        <el-col :span="5" offset="3">
+                            <el-button type="primary"  icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                        </el-col>
                     </el-row>
                 </el-col>
                 <el-col id="mountNode"></el-col>
@@ -84,14 +86,14 @@
                 // Step 4: 渲染图表
                 chart.render();
             },
-            basicBarChart () {
+            initChart () {
                 let data = this.basicBarChartProp.data;
                 let chart = new G2.Chart({
                     container: this.basicBarChartProp.container,
                     width: this.basicBarChartProp.size.width,
                     height: this.basicBarChartProp.size.height
                 });
-                this.chart = chart;
+
                 chart.source(data);
                 chart.axis('type', {
                     label: {
@@ -100,7 +102,9 @@
                 });
                 chart.coord().transpose();
                 chart.interval().position('type*times');
+                this.chart = chart;
                 chart.render();
+
             },
             async getReport() {
                 let res = await this.$api.getSummaryInfo();
@@ -136,7 +140,7 @@
                         type: '反馈次数',
                         times:content.feedbackTimes
                     }];
-                    this.basicBarChart();
+                    this.chart.changeData(this.basicBarChartProp.data);
                 }else if(code == 5001){
                     this.message.error(msg);
                     this.$router.replace("/login").catch(err=>err);
@@ -147,23 +151,16 @@
             // 触发搜索按钮
             handleSearch() {
                 this.getTimesInfo();
-                this.$nextTick(()=>{
-                    this.chart.source(this.basicBarChartProp.data);
-                    this.chart.guide().clear();// 清理guide
-                    this.chart.repaint();
-                })
             },
         },
         created() {
             this.getReport();
             this.getTimesInfo();
         },
-
         mounted() {
-            this.$nextTick(()=>{
-
-            })
+           this.initChart();
         },
+
         beforeCreate() {
             document.querySelector('body').setAttribute('style', 'background:#000000')
         },
@@ -197,5 +194,8 @@
         text-align: center;
         color:#999;
         font-size: 16px;
+    }
+    .line{
+        text-align: center;
     }
 </style>
