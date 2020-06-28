@@ -53,6 +53,7 @@
                 if (code == 0) {
                     this.$message.success('登录成功');
                     localStorage.setItem('ms_username', content.user.account);
+                    localStorage.setItem('user_cate', content.user.category);
                     this.$router.push('/').catch(err=>err);
                 }else{
                     this.$message.success(msg);

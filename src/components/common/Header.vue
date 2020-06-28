@@ -1,62 +1,126 @@
 <template>
-    <div class="header">
-        <!-- 折叠按钮 -->
-        <div class="collapse-btn" @click="collapseChage">
-            <i v-if="!collapse" class="el-icon-s-fold"></i>
-            <i v-else class="el-icon-s-unfold"></i>
-        </div>
-        <div class="logo">益苗荟后台管理系统</div>
-        <div class="header-right">
-            <div class="header-user-con">
-                <!-- 全屏显示 -->
-                <div class="btn-fullscreen" @click="handleFullScreen">
-                    <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
-                        <i class="el-icon-rank"></i>
-                    </el-tooltip>
-                </div>
-                <!-- 消息中心 -->
-                <div class="btn-bell">
-                    <el-tooltip
-                        effect="dark"
-                        :content="message?`有${message}条未读消息`:`消息中心`"
-                        placement="bottom"
-                    >
-                        <router-link to="/tabs">
-                            <i class="el-icon-bell"></i>
-                        </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
-                </div>
-                <!-- 用户头像 -->
-                <div class="user-avator">
-                    <img src="../../assets/img/head.jpg" />
-                </div>
-                <!-- 用户名下拉菜单 -->
-                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+    <div>
+        <div class="header">
+            <!-- 折叠按钮 -->
+            <div class="collapse-btn" @click="collapseChage">
+                <i v-if="!collapse" class="el-icon-s-fold"></i>
+                <i v-else class="el-icon-s-unfold"></i>
+            </div>
+            <div class="logo">益苗荟后台管理系统</div>
+            <div class="header-right">
+                <div class="header-user-con">
+                    <!-- 全屏显示 -->
+                    <div class="btn-fullscreen" @click="handleFullScreen">
+                        <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
+                            <i class="el-icon-rank"></i>
+                        </el-tooltip>
+                    </div>
+                    <!-- 消息中心 -->
+                    <div class="btn-bell">
+                        <el-tooltip
+                                effect="dark"
+                                :content="message?`有${message}条未读消息`:`消息中心`"
+                                placement="bottom"
+                        >
+                            <router-link to="/tabs">
+                                <i class="el-icon-bell"></i>
+                            </router-link>
+                        </el-tooltip>
+                        <span class="btn-bell-badge" v-if="message"></span>
+                    </div>
+                    <!-- 用户头像 -->
+                    <div class="user-avator">
+                        <img src="../../assets/img/head.jpg" />
+                    </div>
+                    <!-- 用户名下拉菜单 -->
+                    <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
                         {{username}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
-                    <el-dropdown-menu slot="dropdown">
-<!--                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">-->
-<!--                            <el-dropdown-item>项目仓库</el-dropdown-item>-->
-<!--                        </a>-->
-                        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item divided command="infomanage">个人信息</el-dropdown-item>
+                            <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
             </div>
         </div>
+        <el-dialog
+                title="个人信息"
+                center
+                :visible.sync="dialogVisible"
+                width="40%"
+        >
+            <el-form ref="form" :model="form" label-width="80px" >
+                <el-form-item label="用户类型">
+                    <el-select style="width: 50%;" v-model="form.category" placeholder="请选择">
+                        <el-option key=10 label="普通用户" value=10></el-option>
+                        <el-option key=20 label="普通管理员" value=20></el-option>
+                        <el-option key=21 label="超级管理员" value=21></el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="姓名">
+                    <el-input style="width: 50%;" v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号">
+                    <el-input style="width: 50%;" v-model="form.mobile"></el-input>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-radio-group v-model="form.sex">
+                        <el-radio label="男" value="1"></el-radio>
+                        <el-radio label="女" value="2"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="出生日期">
+                    <el-date-picker
+                            type="date"
+                            placeholder="选择日期"
+                            v-model="form.birthday"
+                            value-format="yyyy-MM-dd"
+                            style="width: 50%;"
+                    ></el-date-picker>
+                </el-form-item>
+                <el-form-item label="常住地址">
+                    <el-cascader
+                            style="width: 50%;"
+                            :options="options"
+                            v-model="form.address"
+                            @change="handleAddressChange">
+                    </el-cascader>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="handleSubmit">保 存</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 <script>
 import bus from '../common/bus';
+import {regionData} from 'element-china-area-data'
 export default {
     data() {
         return {
             collapse: true,
             fullscreen: false,
-            name: 'linxin',
-            message: 2
+            name: 'admin',
+            message: 2,
+            dialogVisible:false,
+            options:regionData,
+            form:{
+                category:'',
+                name: '',
+                mobile: '',
+                birthday: '',
+                province: '',
+                city: '',
+                district: '',
+                sex: '',
+                address:''
+            }
         };
     },
     computed: {
@@ -72,6 +136,8 @@ export default {
                 localStorage.removeItem('ms_username');
                 localStorage.removeItem('sstoken');
                 this.$router.push('/login');
+            }else if(command == 'infomanage'){
+                this.dialogVisible=true
             }
         },
         // 侧边栏折叠
@@ -105,6 +171,10 @@ export default {
                 }
             }
             this.fullscreen = !this.fullscreen;
+        },
+
+        handleAddressChange(value) {
+            console.log(value)
         }
     },
     mounted() {

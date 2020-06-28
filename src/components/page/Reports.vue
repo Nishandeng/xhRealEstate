@@ -1,22 +1,15 @@
 <template>
     <div>
-<!--        <div class="crumbs">-->
-<!--            <el-breadcrumb separator="/">-->
-<!--                <el-breadcrumb-item>-->
-<!--                    <i class="el-icon-lx-cascades"></i> 用户信息列表-->
-<!--                </el-breadcrumb-item>-->
-<!--            </el-breadcrumb>-->
-<!--        </div>-->
         <div class="container">
-            <div class="handle-box">
-                <el-form ref="form" label-width="160px" inline>
+            <el-row class="searchForm">
+                <el-form ref="form" :inline="true" label-width="100px">
                     <el-form-item label="接种次数">
                         <el-select v-model="query.times" placeholder="接种次数" clearable class="handle-select mr10">
                             <el-option key="1" label="第一次" value=1></el-option>
                             <el-option key="2" label="第二次" value=2></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="是否有不良反应">
+                    <el-form-item label="不良反应">
                         <el-select v-model="query.haveReaction" placeholder="是否有不良反应" clearable
                                    class="handle-select mr10">
                             <el-option key="1" label="否" value=1></el-option>
@@ -31,7 +24,25 @@
                             <el-option key="4" label="接种后48小时-72小时" value=4></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="日期时间">
+                    <el-form-item label="接种地点">
+                        <el-select
+                                v-model="value"
+                                filterable
+                                clearable
+                                remote
+                                reserve-keyword
+                                placeholder="请输入关键词"
+                                :remote-method="remoteMethod"
+                                :loading="loading">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="接种时段">
                         <el-row>
                             <el-col :span="8">
                                 <el-date-picker
@@ -54,11 +65,12 @@
                             </el-col>
                         </el-row>
                     </el-form-item>
-                    <el-button type="primary" class="searchBtn" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </el-form>
-                <!--<el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>-->
-
-            </div>
+                <el-col span="4" style="text-align: right" offset="20">
+                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">搜索
+                    </el-button>
+                </el-col>
+            </el-row>
             <el-table
                     :data="tableData"
                     border
@@ -67,24 +79,26 @@
                     header-cell-class-name="table-header"
                     @selection-change="handleSelectionChange"
             >
-<!--                <el-table-column type="selection" width="55" align="center"></el-table-column>-->
+                <!--                <el-table-column type="selection" width="55" align="center"></el-table-column>-->
                 <el-table-column prop="userName" label="用户姓名" width="90" align="center"></el-table-column>
                 <el-table-column prop="userMobile" label="用户电话" width="120"></el-table-column>
-                <el-table-column  label="出生日期" width="130">
+                <el-table-column label="出生日期" width="130">
                     <template slot-scope="scope">
                         <span>{{$dateUtils.dateFormat(scope.row.birthday,'Y-m-d')}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column  label="接种日期" width="130">
+                <el-table-column label="接种日期" width="130">
                     <template slot-scope="scope">
                         <span>{{$dateUtils.dateFormat(scope.row.injectTime,'Y-m-d')}}</span>
                     </template>
                 </el-table-column>
-<!--                <el-table-column prop="vaccineTypeName" label="疫苗名称" width="90"></el-table-column>-->
+                <!--                <el-table-column prop="vaccineTypeName" label="疫苗名称" width="90"></el-table-column>-->
                 <el-table-column prop="times" align="center" label="接种次数" width="80"></el-table-column>
-                <el-table-column  align="center" label="是否不良反应" width="180">
+                <el-table-column align="center" label="是否不良反应" width="180">
                     <template slot-scope="scope">
-                        <el-tag :type="scope.row.haveReaction==2?'danger':'success'">{{scope.row.haveReaction==2?'有不良反应':'无不良反应'}}</el-tag>
+                        <el-tag :type="scope.row.haveReaction==2?'danger':'success'">
+                            {{scope.row.haveReaction==2?'有不良反应':'无不良反应'}}
+                        </el-tag>
                     </template>
                 </el-table-column>
 
@@ -94,15 +108,15 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column  label="不良反应详情">
+                <el-table-column label="不良反应详情">
                     <template slot-scope="scope">
-                        <el-button v-if ='scope.row.haveReaction==2'
-                                type="text"
-                                icon="el-icon-info"
-                                @click="handleDrawer(scope.$index, scope.row)"
+                        <el-button v-if='scope.row.haveReaction==2'
+                                   type="text"
+                                   icon="el-icon-info"
+                                   @click="handleDrawer(scope.$index, scope.row)"
                         > 点击查看
                         </el-button>
-                        <el-tag type="success"  v-else>用户无不良反应反馈</el-tag>
+                        <el-tag type="success" v-else>用户无不良反应反馈</el-tag>
                     </template>
                 </el-table-column>
             </el-table>
@@ -142,7 +156,7 @@
             <div>
                 <div class="titleDev">用户注射反馈报告单</div>
                 <div class="drawerBoday">
-                    <div class="spanDev"  v-for="(index,item) in activeRow" :key="item" >
+                    <div class="spanDev" v-for="(index,item) in activeRow" :key="item">
                         <span class="labelDev">{{$dateUtils.formLabel(item,activeRow[item]).label}}</span>
                         <span class="labelDev1">{{$dateUtils.formLabel(item,activeRow[item]).value}}</span>
                     </div>
@@ -163,11 +177,12 @@
                     endTime: '',
                     occurPeriod: '',
                     haveReaction: '',
+                    injectLocation:'', //接种地点
                     pageNum: 1,
                     pageSize: 10,
                 },
-                drawer:false,
-                activeRow:{},
+                drawer: false,
+                activeRow: {},
                 tableData: [],
                 multipleSelection: [],
                 delList: [],
@@ -176,11 +191,21 @@
                 pageTotal: 0,
                 form: {},
                 idx: -1,
-                id: -1
-            };
+                id: -1,
+
+                options: [],
+                value: [],
+                list: [],
+                loading: false,
+                states: ["Alabama", "Alaska", "Arizona",
+                    "Arkansas", "California", "Colorado"]
+            }
         },
         mounted() {
             this.getData();
+            this.list = this.states.map(item => {
+                return { value: `value:${item}`, label: `label:${item}` };
+            });
         },
         methods: {
             // 获取 easy-mock 的模拟数据
@@ -191,16 +216,16 @@
                     console.log(">>>>>>>>>content", content)
                     this.tableData = content.list;
                     this.pageTotal = content.total;
-                } else if(code == 5001){
+                } else if (code == 5001) {
                     this.message.error(msg);
-                    this.$router.replace("/login").catch(err=>err);
-                }else {
+                    this.$router.replace("/login").catch(err => err);
+                } else {
                     this.message.error(msg);
                 }
             },
             // 触发搜索按钮
             handleSearch() {
-                this.currentPage=1;
+                this.currentPage = 1;
                 this.getData();
             },
             // 删除操作
@@ -238,20 +263,38 @@
             },
             handleCurrentChange(val) {
                 this.query.pageNum = val;
-                this.currentPage =val;
+                this.currentPage = val;
                 this.getData();
             },
-            handleDrawer(index,scope){
-                this.drawer=true;
+            handleDrawer(index, scope) {
+                this.drawer = true;
                 this.activeRow = scope;
+            },
+            async remoteMethod(query) {
+                if (query !== '') {
+                    this.loading = true;
+                    let res = await this.$api.getInjectLocation(query);
+                    const {code, msg, content} = res.data;
+                    if (code === 0) {
+                        this.loading = true;
+                        this.options = content;
+                    } else if (code == 5001) {
+                        this.loading = true;
+                        this.message.error(msg);
+                    } else {
+                        this.message.error(msg);
+                    }
+                } else {
+                    this.options = [];
+                }
             }
         }
     };
 </script>
 
 <style scoped>
-    .handle-box {
-        margin-bottom: 20px;
+    .searchForm {
+        margin-bottom: 15px;
     }
 
     .handle-select {
@@ -286,20 +329,24 @@
     .line {
         text-align: center;
     }
-    .searchBtn{
+
+    .searchBtn {
         width: 150px;
         float: right;
         margin-bottom: 20px;
     }
-    .drawerBoday{
+
+    .drawerBoday {
         padding: 20px 0 30px 0;
         height: 620px;
         overflow-y: scroll;
     }
-    .spanDev{
+
+    .spanDev {
         margin: 15px 30px;
     }
-    .titleDev{
+
+    .titleDev {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -308,10 +355,12 @@
         font-size: 16px;
         font-weight: 600;
     }
-    .labelDev{
+
+    .labelDev {
         font-size: 14px;
     }
-    .labelDev1{
+
+    .labelDev1 {
         font-size: 14px;
         color: #999;
     }

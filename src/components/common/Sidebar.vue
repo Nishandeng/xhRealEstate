@@ -58,7 +58,8 @@
         data() {
             return {
                 collapse: false,
-                items: sideBaritems
+                items: [],
+                userCategory:10,
             };
         },
         computed: {
@@ -72,6 +73,14 @@
                 this.collapse = msg;
                 bus.$emit('collapse-content', msg);
             });
+        },
+        mounted() {
+            //菜单权限控制
+            let userCategory = localStorage.getItem('user_cate');
+            let authCode = userCategory ? userCategory : this.userCategory;
+            this.items = sideBaritems.filter(item=>{
+                return item.authCode <= authCode;
+            })
         }
     };
 </script>
@@ -91,7 +100,7 @@
     }
 
     .sidebar-el-menu:not(.el-menu--collapse) {
-        width: 150px;
+        width: 200px;
     }
 
     .sidebar > ul {

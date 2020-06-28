@@ -19,15 +19,16 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
                     meta: { title: '系统首页' }
                 },
-                {
-                    path: '/icon',
-                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
-                    meta: { title: '自定义图标' }
-                },
+
                 {
                     path: '/table',
                     component: () => import(/* webpackChunkName: "table" */ '../components/page/Reports.vue'),
                     meta: { title: '数据报表' }
+                },
+                {
+                    path: '/excel',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/TableToExcel.vue'),
+                    meta: { title: '导出excel'}
                 },
                 {
                     path: '/tabs',
@@ -35,9 +36,29 @@ export default new Router({
                     meta: { title: 'tab选项卡' }
                 },
                 {
+                    path: '/userList',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/user/UserList.vue'),
+                    meta: { title: '用户管理' }
+                },
+                {
+                    path: '/userAdd',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/user/UserAdd.vue'),
+                    meta: { title: '添加用户' }
+                },
+                {
+                    path: '/userInfo',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/user/UserInfo.vue'),
+                    meta: { title: '个人信息管理' }
+                },
+                {
                     path: '/form',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
                     meta: { title: '添加用户' }
+                },
+                {
+                    path: '/icon',
+                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
+                    meta: { title: '自定义图标' }
                 },
                 {
                     // 富文本编辑器组件
