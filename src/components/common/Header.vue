@@ -39,7 +39,7 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item divided command="infomanage">个人信息</el-dropdown-item>
+                            <el-dropdown-item divided command="infomanage">修改密码</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -47,48 +47,17 @@
             </div>
         </div>
         <el-dialog
-                title="个人信息"
+                title="修改密码"
                 center
                 :visible.sync="dialogVisible"
                 width="40%"
         >
             <el-form ref="form" :model="form" label-width="80px" >
-                <el-form-item label="用户类型">
-                    <el-select style="width: 50%;" v-model="form.category" placeholder="请选择">
-                        <el-option key=10 label="普通用户" value=10></el-option>
-                        <el-option key=20 label="普通管理员" value=20></el-option>
-                        <el-option key=21 label="超级管理员" value=21></el-option>
-                    </el-select>
+                <el-form-item label="原密码">
+                    <el-input style="width: 50%;" v-model="form.oldPassword"></el-input>
                 </el-form-item>
-
-                <el-form-item label="姓名">
-                    <el-input style="width: 50%;" v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="手机号">
-                    <el-input style="width: 50%;" v-model="form.mobile"></el-input>
-                </el-form-item>
-                <el-form-item label="性别">
-                    <el-radio-group v-model="form.sex">
-                        <el-radio label="男" value="1"></el-radio>
-                        <el-radio label="女" value="2"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="出生日期">
-                    <el-date-picker
-                            type="date"
-                            placeholder="选择日期"
-                            v-model="form.birthday"
-                            value-format="yyyy-MM-dd"
-                            style="width: 50%;"
-                    ></el-date-picker>
-                </el-form-item>
-                <el-form-item label="常住地址">
-                    <el-cascader
-                            style="width: 50%;"
-                            :options="options"
-                            v-model="form.address"
-                            @change="handleAddressChange">
-                    </el-cascader>
+                <el-form-item label="新密码">
+                    <el-input style="width: 50%;" v-model="form.newPassword"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -111,15 +80,8 @@ export default {
             dialogVisible:false,
             options:regionData,
             form:{
-                category:'',
-                name: '',
-                mobile: '',
-                birthday: '',
-                province: '',
-                city: '',
-                district: '',
-                sex: '',
-                address:''
+                oldPassword:'',
+                newPassword:""
             }
         };
     },
@@ -173,9 +135,21 @@ export default {
             this.fullscreen = !this.fullscreen;
         },
 
-        handleAddressChange(value) {
-            console.log(value)
-        }
+        async handleSubmit() {
+
+            let res = await this.$api.changePassword({...this.form});
+            const {code, msg} = res.data;
+            if (code == 0) {
+                this.$message.success("保存成功！");
+                this.dialogVisible = false;
+            }else{
+                this.$message.success(msg);
+            }
+        },
+        handleClose() {
+            this.dialogVisible = false
+        },
+
     },
     mounted() {
         if (document.body.clientWidth < 1500) {

@@ -167,6 +167,9 @@
                 }
             }
         },
+        mounted(){
+            this.getData();
+        },
         methods: {
             handleAddUser() {
                 this.$message.info("添加用户")
@@ -174,7 +177,7 @@
             },
             async handleSubmit() {
                 //todo 调用接口保存
-                let res = await this.$api.updateUserInfo({...this.form});
+                let res = await this.$api.savePlatUser({...this.form});
                 const {code, msg} = res.data;
                 if (code == 0) {
                     this.$message.success("保存成功！");
