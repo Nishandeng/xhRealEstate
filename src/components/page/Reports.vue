@@ -66,9 +66,15 @@
                         </el-row>
                     </el-form-item>
                 </el-form>
-                <el-col span="4" style="text-align: right" offset="20">
+                <el-row>
+
+                </el-row>
+                <el-col span="4" style="text-align: right" offset="16">
                     <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">搜索
                     </el-button>
+                </el-col>
+                <el-col :span="4">
+                    <el-link type="primary" href="report/exportFeedback">主要链接</el-link>
                 </el-col>
             </el-row>
             <el-table
@@ -198,7 +204,7 @@
                 list: [],
                 loading: false,
                 states: ["Alabama", "Alaska", "Arizona",
-                    "Arkansas", "California", "Colorado"]
+                    "Arkansas", "California", "Colorado"],
             }
         },
         mounted() {
@@ -287,6 +293,10 @@
                 } else {
                     this.options = [];
                 }
+            },
+            async handleExport(){
+                // window.open("", '_blank');
+                await this.$api.exportFeedback({...this.query});
             }
         }
     };

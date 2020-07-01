@@ -44,27 +44,17 @@
                     class="table"
                     ref="multipleTable"
                     header-cell-class-name="table-header"
-                    @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="userName" label="用户姓名"  align="center"></el-table-column>
-                <el-table-column prop="userMobile" label="用户电话" ></el-table-column>
-                <el-table-column label="用户类型" >
-                    <template slot-scope="scope">
-                        <span>{{$dateUtils.dateFormat(scope.row.birthday,'Y-m-d')}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column label="出生日期" >
-                    <template slot-scope="scope">
-                        <span>{{$dateUtils.dateFormat(scope.row.birthday,'Y-m-d')}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="userMobile" label="性别" />
+                <el-table-column prop="name" label="用户姓名"  align="center"></el-table-column>
+                <el-table-column prop="mobile" label="用户电话" ></el-table-column>
+                <el-table-column prop="category" label="类型" ></el-table-column>
+                <el-table-column prop="sex" label="性别" />
 
                 <el-table-column label="操作">
-                    <template>
+                    <template slot-scope="scope">
                         <el-button type="primary"  @click="handleSearch">修改</el-button>
-                        <el-button type="primary"  @click="handleSearch">详情</el-button>
+                        <el-button type="primary"  @click="handleDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -100,13 +90,16 @@
                 <el-form-item label="姓名">
                     <el-input style="width: 50%;" v-model="form.name"></el-input>
                 </el-form-item>
+                <el-form-item label="账号">
+                    <el-input style="width: 50%;" v-model="form.account"></el-input>
+                </el-form-item>
                 <el-form-item label="手机号">
                     <el-input style="width: 50%;" v-model="form.mobile"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-radio-group v-model="form.sex">
-                        <el-radio label="男" value="1"></el-radio>
-                        <el-radio label="女" value="2"></el-radio>
+                    <el-radio-group v-model="form.sex" @change="handleRadioChange">
+                        <el-radio label=1>男</el-radio>
+                        <el-radio label=2>女</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="出生日期">
@@ -143,7 +136,7 @@
             return {
                 options:regionData,
                 dialogVisible:false,
-                tableData: [],
+                tableData:[],
                 query: {
                     pageNum: 1,
                     pageSize: 10,
@@ -163,7 +156,8 @@
                     city: '',
                     district: '',
                     sex: '',
-                    address:''
+                    address:'',
+                    account:''
                 }
             }
         },
@@ -212,18 +206,32 @@
                 this.getData();
             },
             // 删除操作
-            handleDelete(index) {
+            handleDelete(user) {
                 // 二次确认删除
                 this.$confirm('确定要删除吗？', '提示', {
                     type: 'warning'
                 })
                     .then(() => {
                         this.$message.success('删除成功');
-                        this.tableData.splice(index, 1);
+                        this.doDeleteUser(user.id);
                     })
                     .catch(() => {
                     });
             },
+            handleRadioChange(val){
+                console.log(val)
+            },
+            async doDeleteUser(userId){
+                let res = await this.$api.deletePlatUser({id:userId});
+                const {code, msg, content} = res.data;
+                if (code === 0) {
+                    console.log(">>>>>>>>>content", content)
+                } else if (code == 5001) {
+                    this.message.error(msg);
+                } else {
+                    this.message.error(msg);
+                }
+            }
         }
     }
 </script>

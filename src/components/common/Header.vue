@@ -136,14 +136,15 @@ export default {
         },
 
         async handleSubmit() {
-
             let res = await this.$api.changePassword({...this.form});
             const {code, msg} = res.data;
+            console.log(">>>>>>>",res)
             if (code == 0) {
                 this.$message.success("保存成功！");
                 this.dialogVisible = false;
             }else{
-                this.$message.success(msg);
+                this.dialogVisible = false;
+                this.$message.error(msg);
             }
         },
         handleClose() {
