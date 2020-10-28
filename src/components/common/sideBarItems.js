@@ -3,13 +3,13 @@ module.exports = [
         icon: 'el-icon-s-home',
         index: 'dashboard',
         title: '系统首页',
-        authCode:10
+        authCode:22
     },
     {
         icon: 'el-icon-data-analysis',
         index: 'table',
         title: '数据报表',
-        authCode:10
+        authCode:22
     },
     {
         icon: 'el-icon-data-analysis',
@@ -21,7 +21,13 @@ module.exports = [
         icon: 'el-icon-data-analysis',
         index: 'excel',
         title: '导出excel',
-        authCode:999
+        authCode:1
+    },
+    {
+        icon: 'el-icon-s-home',
+        index: 'injectData',
+        title: '反馈证书',
+        authCode:22
     },
 
     // {

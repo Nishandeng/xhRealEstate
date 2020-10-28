@@ -79,7 +79,7 @@
             let userCategory = localStorage.getItem('user_cate');
             let authCode = userCategory ? userCategory : this.userCategory;
             this.items = sideBaritems.filter(item=>{
-                return item.authCode <= authCode;
+                return item.authCode >= authCode;
             })
         }
     };

@@ -53,12 +53,28 @@
                 width="40%"
         >
             <el-form ref="form" :model="form" label-width="80px" >
-                <el-form-item label="原密码">
-                    <el-input style="width: 50%;" v-model="form.oldPassword"></el-input>
+                <el-form-item  required label="原密码">
+                    <el-input
+                            type="password"
+                            placeholder="password"
+                            v-model="form.oldPassword"
+                    />
                 </el-form-item>
-                <el-form-item label="新密码">
-                    <el-input style="width: 50%;" v-model="form.newPassword"></el-input>
+                <el-form-item required label="新密码">
+                    <el-input
+                            type="password"
+                            placeholder="password"
+                            v-model="form.newPassword"
+                    />
                 </el-form-item>
+                <el-form-item required label="确认密码">
+                    <el-input
+                            type="password"
+                            placeholder="password"
+                            v-model="surePassword"
+                    />
+                </el-form-item>
+
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
@@ -70,6 +86,7 @@
 <script>
 import bus from '../common/bus';
 import {regionData} from 'element-china-area-data'
+import md5 from "js-md5"
 export default {
     data() {
         return {
@@ -82,7 +99,8 @@ export default {
             form:{
                 oldPassword:'',
                 newPassword:""
-            }
+            },
+            surePassword:''
         };
     },
     computed: {
@@ -136,12 +154,39 @@ export default {
         },
 
         async handleSubmit() {
-            let res = await this.$api.changePassword({...this.form});
+            if(!this.form.oldPassword){
+                this.$message.error('原密码不能为空！')
+                return;
+            }
+            if(!this.form.newPassword){
+                this.$message.error('新密码不能为空！')
+                return;
+            }
+            if(!this.surePassword){
+                this.$message.error('确认密码不能为空！')
+                return;
+            }
+            if(this.surePassword !=this.form.newPassword ){
+                this.$message.error('确认密码与新密码不一致！')
+                return;
+            }
+
+
+            let oldPwd = String(md5(this.form.oldPassword)).toLocaleUpperCase();
+            let newPwd = String(md5(this.form.newPassword)).toLocaleUpperCase();
+
+            let res = await this.$api.changePassword({
+                oldPassword:oldPwd,
+                newPassword:newPwd
+            });
             const {code, msg} = res.data;
             console.log(">>>>>>>",res)
             if (code == 0) {
-                this.$message.success("保存成功！");
+                this.$message.success("密码修改成功，请重新登录！");
                 this.dialogVisible = false;
+                localStorage.removeItem('ms_username');
+                localStorage.removeItem('sstoken');
+                this.$router.replace('/login').catch(err=>err);
             }else{
                 this.dialogVisible = false;
                 this.$message.error(msg);

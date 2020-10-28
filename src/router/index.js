@@ -56,6 +56,11 @@ export default new Router({
                     meta: { title: '添加用户' }
                 },
                 {
+                    path: '/injectData',
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/InjectData.vue'),
+                    meta: { title: '反馈证书' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }

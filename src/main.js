@@ -8,6 +8,7 @@ import dateUtils from "@/utils/dateUtils"
 import viewUtils from "./utils/viewUtils"
 
 
+
 import { messages } from './components/common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
@@ -50,6 +51,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
+
 
 new Vue({
   router,
