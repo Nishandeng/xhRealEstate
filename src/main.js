@@ -5,6 +5,7 @@ import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import Api from './api'
 import dateUtils from "@/utils/dateUtils"
+import viewUtils from "./utils/viewUtils"
 
 
 import { messages } from './components/common/i18n';
@@ -14,6 +15,7 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
 Vue.prototype.$dateUtils = dateUtils
+Vue.prototype.$viewUtils = viewUtils
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {

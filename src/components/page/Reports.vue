@@ -69,12 +69,15 @@
                 <el-row>
 
                 </el-row>
-                <el-col span="4" style="text-align: right" offset="16">
+                <el-col :span="4" style="text-align: right" :offset="14">
                     <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">搜索
                     </el-button>
                 </el-col>
-                <el-col :span="4">
-                    <el-link type="primary" href="report/exportFeedback">主要链接</el-link>
+                <el-col :span="3" style="text-align: right" >
+                    <a type="primary" :href="href"><el-button type="primary" icon="el-icon-download">汇总数据导出</el-button></a>
+                </el-col>
+                <el-col :span="3" style="text-align: right" >
+                    <a type="primary" :href="analysisHref"><el-button type="primary" icon="el-icon-download">分析数据导出</el-button></a>
                 </el-col>
             </el-row>
             <el-table
@@ -183,7 +186,7 @@
                     endTime: '',
                     occurPeriod: '',
                     haveReaction: '',
-                    injectLocation:'', //接种地点
+                    // injectLocation:'', //接种地点
                     pageNum: 1,
                     pageSize: 10,
                 },
@@ -205,6 +208,22 @@
                 loading: false,
                 states: ["Alabama", "Alaska", "Arizona",
                     "Arkansas", "California", "Colorado"],
+            }
+        },
+        computed:{
+            href:function(){
+                let me =this;
+                let params = Object.keys(me.query).map(function (key) {
+                    return encodeURIComponent(key) + "=" + encodeURIComponent(me.query[key]);
+                }).join("&");
+                return "https://wxapp.sinovacbio.cn/s/report/exportSummaryFeedback?"+params
+            },
+            analysisHref:function(){
+                let me =this;
+                let params = Object.keys(me.query).map(function (key) {
+                    return encodeURIComponent(key) + "=" + encodeURIComponent(me.query[key]);
+                }).join("&");
+                return "https://wxapp.sinovacbio.cn/s/report/exportAnalysisFeedback?"+params
             }
         },
         mounted() {

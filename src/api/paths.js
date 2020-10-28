@@ -1,7 +1,7 @@
 export const POST = 'post';
 export const GET = 'get';
-// export const END_POINT = 'https://wxapp.sinovacbio.cn/s';
-export const END_POINT = 'http://192.168.199.144:8080';
+export const END_POINT = 'https://wxapp.sinovacbio.cn/s';
+// export const END_POINT = 'http://192.168.1.18:8080';
 // export const END_POINT = 'http://wxapp.sinovacbio.cn/s';
 // export const END_POINT = 'http://localhost:8080';
 export const APIS ={
@@ -15,12 +15,13 @@ export const APIS ={
   getFeedbackList:["/report/feedbackPageList",POST],
   exportFeedback:["/report/exportFeedback",POST],
 
+
   //接种地点查询
   //getInjectLocation:["/report/timesInfo",POST],
 
   platUserPageList:["/platUser/platUserPageList",POST],
   savePlatUser:["/platUser/savePlatUser",POST],
-  deletePlatUser:["/platUser/deletePlatUser",POST],
+  deletePlatUser:["/platUser/deletePlatUser",GET],
 
 
 
