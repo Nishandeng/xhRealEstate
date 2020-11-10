@@ -85,4 +85,49 @@ export default class dateUtils {
             value: optionLabel
         }
     }
+
+    /**
+     * 时间戳转换成自定义
+     * 已注入所有Vue实例，
+     * template模板里调用 $timestampToTime
+     * 组件方法里调用 this.$timestampToTime
+     * 例：this.$timestampToTime(1523440865000) 得到 '2018-04-11 18:1:5'
+     */
+    static formatimestamp(timestamp, format) {
+        const DATE_FORMATS = {
+            date: 'yyyy-MM-dd',
+            month: 'yyyy-MM',
+            datetime: 'yyyy-MM-dd HH:mm',
+            time: 'HH:mm:ss',
+            minutes: 'HH:mm',
+            week: 'yyyywWW',
+            day: 'dd',
+            timerange: 'HH:mm:ss',
+            daterange: 'yyyy-MM-dd',
+            datetimerange: 'yyyy-MM-dd HH:mm:ss',
+            year: 'yyyy'
+        };
+        if (timestamp < 9999999999) {
+            timestamp = timestamp * 1000
+        }
+        var now = new Date(timestamp);
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        if (hour < 10) hour = "0" + hour;
+        if (minute < 10) minute = "0" + minute;
+        if (second < 10) second = "0" + second;
+
+        if (format === DATE_FORMATS.date) return year + "-" + month + "-" + date;
+        else if (format === DATE_FORMATS.month) return year + "-" + month;
+        else if (format === DATE_FORMATS.minutes) return hour + ":" + minute;
+        else if (format === DATE_FORMATS.datetime) return year + "-" + month + "-" + date + "   " + hour + ":" + minute;
+        else if (format === DATE_FORMATS.time) return hour + ":" + minute + ":" + second;
+        else return year + "-" + month + "-" + date + "     " + hour + ":" + minute + ":" + second;
+    }
 }

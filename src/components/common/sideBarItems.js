@@ -12,7 +12,7 @@ module.exports = [
         authCode:22
     },
     {
-        icon: 'el-icon-data-analysis',
+        icon: 'el-icon-s-custom',
         index: 'userList',
         title: '用户管理',
         authCode:21
@@ -24,7 +24,7 @@ module.exports = [
         authCode:1
     },
     {
-        icon: 'el-icon-s-home',
+        icon: 'el-icon-s-check',
         index: 'injectData',
         title: '反馈证书',
         authCode:22
