@@ -4,29 +4,28 @@ import {END_POINT, POST, GET, APIS} from './paths';
 
 const fns = {};
 
-// const TOKEN_NAME = 'Access-Token';
+const TOKEN_NAME = 'token';
 
 const axios = Axios.create({
-    baseURL: END_POINT,
-    timeout: 15000 * 10,
+    // baseURL: END_POINT,  //代理地址时该参数不能配置
+    timeout: 15000 * 10000,
     //headers:
 });
-
 // axios.defaults.withCredentials=true;
 //axios.defaults.baseURL = 'https://api.example.com';
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 //更新token
-// fns.updateToken = function (token) {
-//     if (!token) {
-//         delete axios.defaults.headers.common[TOKEN_NAME];
-//     } else {
-//         axios.defaults.headers.common[TOKEN_NAME] = token;
-//     }
-// };
+fns.updateToken = function (token) {
+    if (!token) {
+        delete axios.defaults.headers.common[TOKEN_NAME];
+    } else {
+        axios.defaults.headers.common[TOKEN_NAME] = token;
+    }
+};
 
-// fns.updateToken(localStorage.getItem('sstoken'));
+fns.updateToken(localStorage.getItem('sstoken'));
 
 
 async function _fetch(data, options) {

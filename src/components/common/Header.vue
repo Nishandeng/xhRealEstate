@@ -1,12 +1,14 @@
 <template>
     <div>
         <div class="header">
-            <!-- 折叠按钮 -->
-            <div class="collapse-btn" @click="collapseChage">
-                <i v-if="!collapse" class="el-icon-s-fold"></i>
-                <i v-else class="el-icon-s-unfold"></i>
+            <div class="logo">
+                <div style="display: flex;align-items: center">
+                    <div class="user-avator">
+                        <img src="../../assets/img/logo.png" />
+                    </div>
+                    <span style="padding-left: 15px">公安测试系统</span>
+                </div>
             </div>
-            <div class="logo">益苗荟后台管理系统</div>
             <div class="header-right">
                 <div class="header-user-con">
                     <!-- 全屏显示 -->
@@ -15,22 +17,9 @@
                             <i class="el-icon-rank"></i>
                         </el-tooltip>
                     </div>
-                    <!-- 消息中心 -->
-                    <div class="btn-bell">
-                        <el-tooltip
-                                effect="dark"
-                                :content="message?`有${message}条未读消息`:`消息中心`"
-                                placement="bottom"
-                        >
-                            <router-link to="/tabs">
-                                <i class="el-icon-bell"></i>
-                            </router-link>
-                        </el-tooltip>
-                        <span class="btn-bell-badge" v-if="message"></span>
-                    </div>
                     <!-- 用户头像 -->
                     <div class="user-avator">
-                        <img src="../../assets/img/head.jpg" />
+                        <img src="../../assets/img/head.png" />
                     </div>
                     <!-- 用户名下拉菜单 -->
                     <el-dropdown class="user-name" trigger="click" @command="handleCommand">
@@ -39,54 +28,19 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item divided command="infomanage">修改密码</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
             </div>
         </div>
-        <el-dialog
-                title="修改密码"
-                center
-                :visible.sync="dialogVisible"
-                width="40%"
-        >
-            <el-form ref="form" :model="form" label-width="80px" >
-                <el-form-item  required label="原密码">
-                    <el-input
-                            type="password"
-                            placeholder="password"
-                            v-model="form.oldPassword"
-                    />
-                </el-form-item>
-                <el-form-item required label="新密码">
-                    <el-input
-                            type="password"
-                            placeholder="password"
-                            v-model="form.newPassword"
-                    />
-                </el-form-item>
-                <el-form-item required label="确认密码">
-                    <el-input
-                            type="password"
-                            placeholder="password"
-                            v-model="surePassword"
-                    />
-                </el-form-item>
-
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="handleSubmit">保 存</el-button>
-            </span>
-        </el-dialog>
     </div>
 </template>
 <script>
 import bus from '../common/bus';
 import {regionData} from 'element-china-area-data'
-import md5 from "js-md5"
+import Cookies from 'js-cookie'
+
 export default {
     data() {
         return {
@@ -96,10 +50,6 @@ export default {
             message: 2,
             dialogVisible:false,
             options:regionData,
-            form:{
-                oldPassword:'',
-                newPassword:""
-            },
             surePassword:''
         };
     },
@@ -114,8 +64,8 @@ export default {
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
-                localStorage.removeItem('sstoken');
-                this.$router.push('/login');
+                Cookies.remove('userToken',null)
+                this.$router.replace('/login');
             }else if(command == 'infomanage'){
                 this.dialogVisible=true
             }
@@ -153,45 +103,6 @@ export default {
             this.fullscreen = !this.fullscreen;
         },
 
-        async handleSubmit() {
-            if(!this.form.oldPassword){
-                this.$message.error('原密码不能为空！')
-                return;
-            }
-            if(!this.form.newPassword){
-                this.$message.error('新密码不能为空！')
-                return;
-            }
-            if(!this.surePassword){
-                this.$message.error('确认密码不能为空！')
-                return;
-            }
-            if(this.surePassword !=this.form.newPassword ){
-                this.$message.error('确认密码与新密码不一致！')
-                return;
-            }
-
-
-            let oldPwd = String(md5(this.form.oldPassword)).toLocaleUpperCase();
-            let newPwd = String(md5(this.form.newPassword)).toLocaleUpperCase();
-
-            let res = await this.$api.changePassword({
-                oldPassword:oldPwd,
-                newPassword:newPwd
-            });
-            const {code, msg} = res.data;
-            console.log(">>>>>>>",res)
-            if (code == 0) {
-                this.$message.success("密码修改成功，请重新登录！");
-                this.dialogVisible = false;
-                localStorage.removeItem('ms_username');
-                localStorage.removeItem('sstoken');
-                this.$router.replace('/login').catch(err=>err);
-            }else{
-                this.dialogVisible = false;
-                this.$message.error(msg);
-            }
-        },
         handleClose() {
             this.dialogVisible = false
         },
@@ -220,9 +131,12 @@ export default {
     line-height: 70px;
 }
 .header .logo {
+    /*padding-left: 30px;*/
     float: left;
     width: 250px;
     line-height: 70px;
+    /*display: flex;*/
+    align-items: center;
 }
 .header-right {
     float: right;
