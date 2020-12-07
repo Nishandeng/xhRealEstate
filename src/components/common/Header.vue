@@ -39,7 +39,7 @@
 <script>
 import bus from '../common/bus';
 import {regionData} from 'element-china-area-data'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 export default {
     data() {
@@ -64,7 +64,7 @@ export default {
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
-                Cookies.remove('userToken',null)
+                // Cookies.remove('userToken',null)
                 this.$router.replace('/login');
             }else if(command == 'infomanage'){
                 this.dialogVisible=true
