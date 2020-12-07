@@ -58,7 +58,7 @@ export default new Router({
                 {
                     path: '/injectData',
                     component: () => import(/* webpackChunkName: "table" */ '../components/page/InjectData.vue'),
-                    meta: { title: '反馈证书' }
+                    meta: { title: '接种数据' }
                 },
                 {
                     path: '/icon',

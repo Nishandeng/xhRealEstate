@@ -26,7 +26,7 @@ module.exports = [
     {
         icon: 'el-icon-s-check',
         index: 'injectData',
-        title: '反馈证书',
+        title: '接种数据',
         authCode:22
     },
 
