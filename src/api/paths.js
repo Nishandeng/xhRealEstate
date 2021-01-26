@@ -7,16 +7,18 @@ export const GET = 'get';
 
 //文件服务器路径
 // export const FILE_SERVER_HOST = 'http://10.11.40.233:8443/'
-export const END_POINT = 'http://localhost:8080';
+// export const END_POINT = 'http://localhost:8080';
 
 
 export const FILE_SERVER_HOST = 'https://wxapp.sinovacbio.cn'
-// export const END_POINT = 'https://wxapp.sinovacbio.cn/s';
+export const END_POINT = 'https://wxapp.sinovacbio.cn/s';
 
 export const APIS ={
   login: ['/login/login', GET],
 
   changePassword:['/login/changePwd',GET],
+  //检查session
+  checkSession:['/login/checkSession',GET],
 
   //报表
   getSummaryInfo:["/report/summaryInfo",GET],

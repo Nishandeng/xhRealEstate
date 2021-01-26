@@ -19,7 +19,7 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()">登录</el-button>
+                    <el-button type="primary"  @click="submitForm()">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -51,26 +51,13 @@
                 );
                 const {code, msg, content} = res.data;
                 if (code == 0) {
-                    this.$message.success('登录成功');
                     localStorage.setItem('ms_username', content.user.account);
                     localStorage.setItem('user_cate', content.user.category);
+                    localStorage.setItem("userToken",content.token)
                     this.$router.push('/').catch(err=>err);
                 }else{
                     this.$message.success(msg);
                 }
-
-
-                // this.$refs.login.validate(valid => {
-                //     if (valid) {
-                //         this.$message.success('登录成功');
-                //         localStorage.setItem('ms_username', this.param.account);
-                //         this.$router.push('/');
-                //     } else {
-                //         this.$message.error('请输入账号和密码');
-                //         console.log('error submit!!');
-                //         return false;
-                //     }
-                // });
             },
         },
     };
@@ -108,11 +95,10 @@
     .ms-content {
         padding: 30px 30px;
     }
-
     .login-btn {
         text-align: center;
+        padding-top: 30px;
     }
-
     .login-btn button {
         width: 100%;
         height: 36px;

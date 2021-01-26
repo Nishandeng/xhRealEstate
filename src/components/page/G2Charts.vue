@@ -10,7 +10,7 @@
             <el-row>
                 <el-col >
                     <el-row >
-                        <el-col :span="6" offset="3">
+                        <el-col :span="6" :offset="3">
                             <el-date-picker
                                     type="date"
                                     placeholder="选择日期"
@@ -29,7 +29,7 @@
                                     style="width: 100%;"
                             />
                         </el-col>
-                        <el-col :span="5" offset="3">
+                        <el-col :span="5" :offset="3">
                             <el-button type="primary"  icon="el-icon-search" @click="handleSearch">搜索</el-button>
                         </el-col>
                     </el-row>

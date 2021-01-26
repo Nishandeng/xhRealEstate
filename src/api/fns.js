@@ -1,33 +1,32 @@
 import Axios from 'axios';
 import Emiter from '../emiter'
 import {END_POINT, POST, GET, APIS} from './paths';
+import router from '../router';
+import {Message} from "element-ui";
 
 const fns = {};
-
-// const TOKEN_NAME = 'Access-Token';
 
 const axios = Axios.create({
     baseURL: END_POINT,
     timeout: 15000 * 10,
-    //headers:
+    // headers: {
+    //     common: {
+    //         "Access_token": localStorage.getItem('userToken') //token
+    //     }
+    // }
 });
 
-// axios.defaults.withCredentials=true;
-//axios.defaults.baseURL = 'https://api.example.com';
-//axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+//请求拦截器
+axios.interceptors.request.use(
+    config => {
+        if (localStorage.getItem("userToken") != null) {
+            config.headers["Access_token"] = localStorage.getItem("userToken");
+        }
 
-//更新token
-// fns.updateToken = function (token) {
-//     if (!token) {
-//         delete axios.defaults.headers.common[TOKEN_NAME];
-//     } else {
-//         axios.defaults.headers.common[TOKEN_NAME] = token;
-//     }
-// };
-
-// fns.updateToken(localStorage.getItem('sstoken'));
-
+        return config;
+    },
+    err => Promise.reject(err)
+);
 
 async function _fetch(data, options) {
     let [p, m] = this;
@@ -45,5 +44,28 @@ async function _fetch(data, options) {
 }
 
 Object.keys(APIS).forEach(k => fns[k] = _fetch.bind(APIS[k]));
+
+
+
+//响应拦截器
+axios.interceptors.response.use(
+    response => {
+        console.log(response)
+        if (response.data.code == 5007 || response.data.msg == 'Token过期') {
+            Message.error("创建会话失败或会话过期,请登录重试！")
+            router.replace("/login").catch(err => err);
+        }
+        return response;
+    },
+    error => {
+        if (error == "Error: Network Error") {
+            Message.error("网络错误，请稍后重试！")
+            router.replace("/login").catch(err => err);
+        } else {
+            console.error(Promise.reject(error))
+            return Promise.reject(error)
+        }
+    }
+)
 
 export default fns;
