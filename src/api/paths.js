@@ -38,6 +38,7 @@ export const APIS ={
   getInjectDataList:["/cert/data/list",POST],
   getInjectCertApplyPageList:["/cert/getPageList",POST],
   saveInjectCertData:['/cert/data/add',POST],
+  addStandardData:['/cert/data/addStandardData',POST],
 
   getStandardDataList:["/cert/data/getStandardDataList",POST],
 

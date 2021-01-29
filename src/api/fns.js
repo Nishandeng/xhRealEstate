@@ -52,7 +52,7 @@ axios.interceptors.response.use(
     response => {
         console.log(response)
         if (response.data.code == 5007 || response.data.msg == 'Token过期') {
-            Message.error("创建会话失败或会话过期,请登录重试！")
+            // Message.error("创建会话失败或会话过期,请登录重试！")
             router.replace("/login").catch(err => err);
         }
         return response;

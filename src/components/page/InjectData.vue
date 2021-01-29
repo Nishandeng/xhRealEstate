@@ -129,27 +129,27 @@
                 <el-form-item label="工作单位">
                     <el-input v-model="form.workOrg"></el-input>
                 </el-form-item>
-                <el-form-item label="反馈编号">
+                <el-form-item label="接种编号">
                     <el-input v-model="form.injectNo"></el-input>
                 </el-form-item>
-                <el-form-item label="首次反馈日期">
+                <el-form-item label="首次接种日期">
                     <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="form.firstInjectDate"
                                     value-format="yyyy-MM-dd"/>
                 </el-form-item>
-                <el-form-item label="首次反馈地点">
+                <el-form-item label="首次接种地点">
                     <el-input v-model="form.firstInjectLocation"></el-input>
                 </el-form-item>
-                <el-form-item label="首次反馈编号">
+                <el-form-item label="首次疫苗批号">
                     <el-input v-model="form.firstInjectNo"></el-input>
                 </el-form-item>
-                <el-form-item label="二次反馈日期">
+                <el-form-item label="二次接种日期">
                     <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="form.secondInjectDate"
                                     value-format="yyyy-MM-dd"/>
                 </el-form-item>
-                <el-form-item label="二次反馈地点">
+                <el-form-item label="二次接种地点">
                     <el-input v-model="form.secondInjectLocation"></el-input>
                 </el-form-item>
-                <el-form-item label="二次反馈编号">
+                <el-form-item label="二次疫苗批号">
                     <el-input v-model="form.secondInjectNo"></el-input>
                 </el-form-item>
                 <el-form-item label="报告员">
@@ -230,84 +230,57 @@
 <!--手动录入-->
         <el-dialog
                 title="新增接种数据"
-                width="70%"
+                width="50%"
                 center
                 :visible.sync="dialogVisible3"
                 :before-close="handleClose3">
             <el-form :inline="true" label-suffix=":" ref="form" :model="injectDataForm" label-width="120px">
-                <el-form-item label="姓名">
+                <el-form-item label="姓名" prop="name" :rules="
+                [{ required: true, message: '请输入姓名', trigger: 'blur' }]">
                     <el-input v-model="injectDataForm.name"></el-input>
                 </el-form-item>
-                <el-form-item label="手机号">
+                <el-form-item prop="mobile" label="联系电话" :rules="[{ required: true,validator: this.$validator.validatePhone,trigger: 'blur' }]">
                     <el-input v-model="injectDataForm.mobile"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号" prop="idNo" :rules="[{ required: true,validator: this.$validator.validateIdCard,trigger: 'blur' }]">
+                    <el-input v-model="injectDataForm.idNo"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
                     <el-radio-group v-model="injectDataForm.sex">
-                        <el-radio :label="'1'">男</el-radio>
-                        <el-radio :label="'2'">女</el-radio>
+                        <el-radio label="男">男</el-radio>
+                        <el-radio label="女">女</el-radio>
                     </el-radio-group>
-                </el-form-item>
-                <el-form-item label="年龄">
-                    <el-input v-model="injectDataForm.age"></el-input>
-                </el-form-item>
-                <el-form-item label="身份证号">
-                    <el-input v-model="injectDataForm.idNo"></el-input>
                 </el-form-item>
                 <el-form-item label="工作单位">
                     <el-input v-model="injectDataForm.workOrg"></el-input>
                 </el-form-item>
-                <el-form-item label="反馈编号">
+                <el-form-item label="接种编号">
                     <el-input v-model="injectDataForm.injectNo"></el-input>
                 </el-form-item>
-                <el-form-item label="首次反馈日期">
+                <el-form-item label="首次接种日期">
                     <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.firstInjectDate"
                                     value-format="yyyy-MM-dd"/>
                 </el-form-item>
-                <el-form-item label="首次反馈地点">
+                <el-form-item label="首次接种地点">
                     <el-input v-model="injectDataForm.firstInjectLocation"></el-input>
                 </el-form-item>
-                <el-form-item label="首次反馈编号">
+                <el-form-item label="首次疫苗批号">
                     <el-input v-model="injectDataForm.firstInjectNo"></el-input>
                 </el-form-item>
-                <el-form-item label="二次反馈日期">
+                <el-form-item label="二次接种日期">
                     <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.secondInjectDate"
                                     value-format="yyyy-MM-dd"/>
                 </el-form-item>
-                <el-form-item label="二次反馈地点">
+                <el-form-item label="二次接种地点">
                     <el-input v-model="injectDataForm.secondInjectLocation"></el-input>
                 </el-form-item>
-                <el-form-item label="二次反馈编号">
+                <el-form-item label="二次疫苗批号">
                     <el-input v-model="injectDataForm.secondInjectNo"></el-input>
-                </el-form-item>
-                <el-form-item label="报告员">
-                    <el-input v-model="injectDataForm.reporter"></el-input>
-                </el-form-item>
-                <el-form-item label="检查员">
-                    <el-input v-model="injectDataForm.checker"></el-input>
-                </el-form-item>
-                <el-form-item label="发布日期">
-                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.issuedate"
-                                    value-format="yyyy-MM-dd"/>
-                </el-form-item>
-                <!--                <el-form-item label="提交时间">-->
-                <!--                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="form.commitTime"-->
-                <!--                                    value-format="yyyy-MM-dd"/>-->
-                <!--                </el-form-item>-->
-                <el-form-item label="证书路径">
-                    <el-input v-model="injectDataForm.certPath"></el-input>
-                </el-form-item>
-                <el-form-item label="开始时间">
-                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.startTime"
-                                    value-format="yyyy-MM-dd"/>
-                </el-form-item>
-                <el-form-item label="结束时间">
-                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.finishTime"
-                                    value-format="yyyy-MM-dd"/>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible3 = false">取 消</el-button>
-                <el-button type="primary" @click="saveInjectData">保 存</el-button>
+                <el-button  type="primary" @click="saveInjectData">保 存</el-button>
             </span>
         </el-dialog>
     </div>
@@ -336,7 +309,10 @@
                 pageTotal: 0,
                 searchForm: {},
                 form: {},
-                injectDataForm:{},
+                enableEdit:true,
+                injectDataForm:{
+                    sex:"男"
+                },
                 currentData: {},
                 title: '',
                 showAlert: false,
@@ -372,12 +348,20 @@
                     this.dialogVisible = false;
                     this.refresh();
                 } else {
-                    this.$message.success(msg);
+                    this.$message.error(msg);
                 }
             },
             //todo 保存接种数据
             async saveInjectData(){
-
+                let res = await this.$api.addStandardData(this.injectDataForm);
+                const {code, msg} = res.data;
+                if (code == 0) {
+                    this.$message.success("保存成功！");
+                    this.dialogVisible3=false;
+                    this.refresh();
+                } else {
+                    this.$message.error(msg);
+                }
             },
 
             handleClose() {

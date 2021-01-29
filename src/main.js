@@ -6,6 +6,7 @@ import VueI18n from 'vue-i18n';
 import Api from './api'
 import dateUtils from "@/utils/dateUtils"
 import viewUtils from "./utils/viewUtils"
+import validateUtils from "./utils/validateUtils"
 
 
 import { messages } from './components/common/i18n';
@@ -16,6 +17,9 @@ import './components/common/directives';
 import 'babel-polyfill';
 Vue.prototype.$dateUtils = dateUtils
 Vue.prototype.$viewUtils = viewUtils
+Vue.prototype.$validator = validateUtils
+
+
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
