@@ -6,6 +6,7 @@ export default class viewUtils {
         if(val==22) {return "普通用户"}
         else if(val==21) {return "普通管理员"}
         else if(val==20) {return "超级管理员"}
+        else if(val==30) {return "数据管理员"}
         else{
             return ''
         }

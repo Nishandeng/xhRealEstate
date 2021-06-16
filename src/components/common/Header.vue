@@ -115,6 +115,8 @@ export default {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
                 localStorage.removeItem('sstoken');
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('user_cate');
                 this.$router.push('/login');
             }else if(command == 'infomanage'){
                 this.dialogVisible=true

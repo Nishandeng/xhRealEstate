@@ -78,9 +78,24 @@
             //菜单权限控制
             let userCategory = localStorage.getItem('user_cate');
             let authCode = userCategory ? userCategory : this.userCategory;
-            this.items = sideBaritems.filter(item=>{
-                return item.authCode >= authCode;
-            })
+            if(authCode!=30){
+                this.items = sideBaritems.filter(item=>{
+                    return item.authCode >= authCode && item.authCode <30;
+                })
+            }else if(authCode==30){
+                this.items=[
+                    {
+                        icon: 'el-icon-s-home',
+                        index: 'dashboard',
+                        title: '系统首页',
+                    },
+                    {
+                        icon: 'el-icon-s-check',
+                        index: 'vaccineManage',
+                        title: '疫苗库管理',
+                    },
+                ]
+            }
         }
     };
 </script>

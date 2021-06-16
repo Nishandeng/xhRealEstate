@@ -11,6 +11,7 @@
                             <el-option :key=22 label="普通用户" :value=22></el-option>
                             <el-option :key=21 label="普通管理员" :value=21></el-option>
                             <el-option :key=20 label="超级管理员" :value=20></el-option>
+                            <el-option :key=30 label="数据管理员" :value=30></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="性别">
@@ -96,6 +97,7 @@
                         <el-option :key=22 label="普通用户" :value=22></el-option>
                         <el-option :key=21 label="普通管理员" :value=21></el-option>
                         <el-option :key=20 label="超级管理员" :value=20></el-option>
+                        <el-option :key=30 label="数据管理员" :value=30></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="性别">

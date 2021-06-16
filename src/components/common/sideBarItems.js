@@ -9,25 +9,31 @@ module.exports = [
         icon: 'el-icon-data-analysis',
         index: 'table',
         title: '数据报表',
-        authCode:22
+        authCode:21
     },
     {
         icon: 'el-icon-s-custom',
         index: 'userList',
         title: '用户管理',
-        authCode:21
+        authCode:20
     },
     {
         icon: 'el-icon-data-analysis',
         index: 'excel',
         title: '导出excel',
-        authCode:1
+        authCode:-1
     },
     {
         icon: 'el-icon-s-check',
         index: 'injectData',
         title: '接种数据',
-        authCode:22
+        authCode:21
+    },
+    {
+        icon: 'el-icon-s-check',
+        index: 'vaccineManage',
+        title: '疫苗库管理',
+        authCode:30
     },
 
     // {

@@ -176,6 +176,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name: 'basetable',
         data() {
@@ -316,7 +317,40 @@
             async handleExport(){
                 // window.open("", '_blank');
                 await this.$api.exportFeedback({...this.query});
+            },
+
+
+            //导出excel
+            batchExport(url) {
+                //let url = ""; //请求下载文件的地址
+                let token = localStorage.getItem("userToken"); //获取token
+                axios.get(url, {
+                        headers: {
+                            Access_token: token
+                        },
+                        responseType: "blob"
+                    })
+                    .then(res => {
+                        if (!res) return;
+                        let blob = new Blob([res.data], {
+                            type: "application/vnd.ms-excel;charset=utf-8"
+                        });
+                        let url = window.URL.createObjectURL(blob);
+                        let aLink = document.createElement("a");
+                        aLink.style.display = "none";
+                        aLink.href = url;
+                        aLink.setAttribute("download", "xxx.xls"); // 下载的文件
+                        document.body.appendChild(aLink);
+                        aLink.click();
+                        document.body.removeChild(aLink);
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        this.$message.error(error);
+                    });
             }
+
+
         }
     };
 </script>

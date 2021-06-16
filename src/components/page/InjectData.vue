@@ -318,7 +318,7 @@
                 showAlert: false,
                 importBtnDisabled: false, // 按钮是否禁用,
                 downloadUrl: "接种数据模板.xls",//excel模板文件，可以放到OSS中，也可以就放到vue项目中的static目录中，提供给用户下载
-                formSubmitFileUrl: END_POINT + "/cert/data/import",//调用后端解析excel的接口,
+                formSubmitFileUrl: END_POINT + "/cert/data/import?Access_token="+localStorage.getItem("userToken"),//调用后端解析excel的接口,
                 uploadLoading: false
             }
         },
