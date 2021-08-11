@@ -51,7 +51,7 @@ Object.keys(APIS).forEach(k => fns[k] = _fetch.bind(APIS[k]));
 axios.interceptors.response.use(
     response => {
         console.log(response)
-        if (response.data.code == 5007 || response.data.msg == 'Token过期') {
+        if (response.data.code == 5001||response.data.msg == 'SESSION过期'||response.data.code == 5007 || response.data.msg == 'Token过期') {
             // Message.error("创建会话失败或会话过期,请登录重试！")
             router.replace("/login").catch(err => err);
         }

@@ -3,7 +3,11 @@
         <div class="container">
             <div style="display: flex;align-items: center;justify-content: space-between;margin: 10px 0">
                 <div style="text-align: right;display: flex;align-items: center;">
-                    <el-input style="width: 260px;padding-right: 15px" v-model="query.keyword" clearable></el-input>
+                    <el-input style="width: 200px;margin-right: 15px" placeholder="根据手机号查询" v-model="query.mobile" clearable></el-input>
+                    <el-input style="width: 200px;margin-right: 15px" placeholder="根据第一次疫苗编号查询" v-model="query.firstInjectNo" clearable></el-input>
+<!--                    <el-input style="width: 150px;padding-right: 15px" v-model="query.keyword" clearable/>-->
+                    <el-input style="width: 200px;margin-right: 15px" placeholder="根据第二次疫苗编号查询" v-model="query.secondInjectNo" clearable></el-input>
+                    <el-input style="width: 200px;margin-right: 15px" placeholder="根据第三次疫苗编号查询" v-model="query.thirdInjectNo" clearable></el-input>
                     <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索
                     </el-button>
                 </div>
@@ -152,6 +156,16 @@
                 <el-form-item label="二次疫苗批号">
                     <el-input v-model="form.secondInjectNo"></el-input>
                 </el-form-item>
+                <el-form-item label="三次接种日期">
+                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="form.thirdInjectDate"
+                                    value-format="yyyy-MM-dd"/>
+                </el-form-item>
+                <el-form-item label="三次接种地点">
+                    <el-input v-model="form.thirdInjectLocation"></el-input>
+                </el-form-item>
+                <el-form-item label="三次疫苗批号">
+                    <el-input v-model="form.thirdInjectNo"></el-input>
+                </el-form-item>
                 <el-form-item label="报告员">
                     <el-input v-model="form.reporter"></el-input>
                 </el-form-item>
@@ -277,6 +291,16 @@
                 <el-form-item label="二次疫苗批号">
                     <el-input v-model="injectDataForm.secondInjectNo"></el-input>
                 </el-form-item>
+                <el-form-item label="三次接种日期">
+                    <el-date-picker type="date" style="width: 177px" placeholder="选择日期" v-model="injectDataForm.thirdInjectDate"
+                                    value-format="yyyy-MM-dd"/>
+                </el-form-item>
+                <el-form-item label="三次接种地点">
+                    <el-input v-model="injectDataForm.thirdInjectLocation"></el-input>
+                </el-form-item>
+                <el-form-item label="三次疫苗批号">
+                    <el-input v-model="injectDataForm.thirdInjectNo"></el-input>
+                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible3 = false">取 消</el-button>
@@ -304,6 +328,8 @@
                     keyword: null,
                     pageNum: 1,
                     pageSize: 10,
+                    firstInjectNo:"",
+                    secondInjectNo:"",
                 },
                 currentPage: 1,
                 pageTotal: 0,
