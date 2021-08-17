@@ -26,23 +26,17 @@ export const APIS ={
   getFeedbackList:["/report/feedbackPageList",POST],
   exportFeedback:["/report/exportFeedback",POST],
 
-
-  //接种地点查询
-  //getInjectLocation:["/report/timesInfo",POST],
-
-  platUserPageList:["/platUser/platUserPageList",POST],
-  savePlatUser:["/platUser/savePlatUser",POST],
-  deletePlatUser:["/platUser/deletePlatUser",GET],
-
-  //反馈证明
-  getInjectDataList:["/cert/data/list",POST],
-  getInjectCertApplyPageList:["/cert/getPageList",POST],
-  saveInjectCertData:['/cert/data/add',POST],
-  addStandardData:['/cert/data/addStandardData',POST],
-
-  getStandardDataList:["/cert/data/getStandardDataList",POST],
-
-   importVaccine:['/api/excel/import',POST],
-   downloadVaccineTemp:['/api/excel/download',GET],
+  //项目
+  projectPageList:["/platUser/platUserPageList",POST],
+  saveProject:["/platUser/savePlatUser",POST],
+  deleteProject:["/platUser/deletePlatUser",GET],
+  //活动
+  activityPageList:["/platUser/platUserPageList",POST],
+  saveActivity:["/platUser/savePlatUser",POST],
+  deleteActivity:["/platUser/deletePlatUser",GET],
+  //用户
+  userPageList:["/platUser/platUserPageList",POST],
+  saveUser:["/platUser/savePlatUser",POST],
+  deleteUser:["/platUser/deletePlatUser",GET],
 
 };

@@ -6,10 +6,16 @@ module.exports = [
         authCode:22
     },
     {
-        icon: 'el-icon-data-analysis',
-        index: 'table',
-        title: '数据报表',
-        authCode:21
+        icon: 'el-icon-office-building',
+        index: 'projectList',
+        title: '项目管理',
+        authCode:20
+    },
+    {
+        icon: 'el-icon-wind-power',
+        index: 'activityList',
+        title: '活动管理',
+        authCode:20
     },
     {
         icon: 'el-icon-s-custom',
@@ -19,51 +25,8 @@ module.exports = [
     },
     {
         icon: 'el-icon-data-analysis',
-        index: 'excel',
-        title: '导出excel',
-        authCode:-1
-    },
-    {
-        icon: 'el-icon-s-check',
-        index: 'injectData',
-        title: '接种数据',
+        index: 'table',
+        title: '数据报表',
         authCode:21
-    },
-    {
-        icon: 'el-icon-s-check',
-        index: 'vaccineManage',
-        title: '疫苗库管理',
-        authCode:30
-    },
-
-    // {
-    //     icon: 'el-icon-share',
-    //     index: '3',
-    //     title: '疫苗知识管理',
-    //     subs: [
-    //         {
-    //             index: 'editor',
-    //             title: '添加文章'
-    //         },
-    //         {
-    //             index: 'upload',
-    //             title: '文件上传'
-    //         }
-    //     ]
-    // },
-    // {
-    //     icon: 'el-icon-share',
-    //     index: '5',
-    //     title: '系统管理',
-    //     subs: [
-    //         {
-    //             index: 'permission',
-    //             title: '权限测试'
-    //         },
-    //         {
-    //             index: '404',
-    //             title: '404页面'
-    //         }
-    //     ]
-    // }
+    }
 ]

@@ -32,7 +32,13 @@
                     </el-button>
                 </el-col>
             </el-row>
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table
+                    :data="tableData"
+                    border
+                    class="table"
+                    ref="multipleTable"
+                    header-cell-class-name="table-header"
+            >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="name" label="用户姓名"  align="center"></el-table-column>
                 <el-table-column prop="account" label="账号"  align="center"></el-table-column>
@@ -188,7 +194,7 @@
             },
             async handleSubmit() {
                 //todo 调用接口保存
-                let res = await this.$api.saveUser({...this.form});
+                let res = await this.$api.saveActivity({...this.form});
                 const {code, msg} = res.data;
                 if (code == 0) {
                     this.$message.success("保存成功！");
@@ -206,7 +212,7 @@
             },
 
             async getData() {
-                let res = await this.$api.userPageList({...this.query});
+                let res = await this.$api.activityPageList({...this.query});
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)
@@ -239,7 +245,7 @@
                 console.log(val)
             },
             async doDeleteUser(userId){
-                let res = await this.$api.deleteUser({id:userId});
+                let res = await this.$api.deleteActivity({id:userId});
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)

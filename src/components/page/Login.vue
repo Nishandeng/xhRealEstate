@@ -87,8 +87,8 @@
         top: 50%;
         width: 350px;
         margin: -190px 0 0 -175px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, .2);
         overflow: hidden;
     }
 
