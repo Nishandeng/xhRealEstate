@@ -9,12 +9,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input
-                            type="password"
-                            placeholder="password"
-                            v-model="param.password"
-                            @keyup.enter.native="submitForm()"
-                    >
+                    <el-input type="password" placeholder="password" v-model="param.password" @keyup.enter.native="submitForm()">
                         <el-button slot="prepend" icon="el-icon-lock"></el-button>
                     </el-input>
                 </el-form-item>
@@ -68,8 +63,9 @@
         position: relative;
         width: 100%;
         height: 100%;
-        /*background-image: url(../../assets/img/login-bg.png);*/
-        background-size: 100%;
+        background-image: url(../../assets/img/login-bg.jpeg);
+        background-repeat: no-repeat;
+        background-size:cover;
     }
 
     .ms-title {
@@ -87,8 +83,8 @@
         top: 50%;
         width: 350px;
         margin: -190px 0 0 -175px;
-        border-radius: 15px;
-        background: rgba(255, 255, 255, .2);
+        /*border-radius: 15px;*/
+        background: rgba(255, 255, 255, .3);
         overflow: hidden;
     }
 

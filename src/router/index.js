@@ -24,12 +24,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "table" */ '../components/page/Reports.vue'),
                     meta: {title: '数据报表', permission: true}
                 },
-                //用户
-                {
-                    path: '/userList',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/user/UserList.vue'),
-                    meta: {title: '用户管理', permission: true}
-                },
+
                 //项目
                 {
                     path: '/projectList',
@@ -42,6 +37,24 @@ export default new Router({
                     path: '/activityList',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/activity/ActivityList.vue'),
                     meta: {title: '活动管理', permission: true}
+                },
+                //报名信息
+                {
+                    path: '/registerList',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/register/RegisterList.vue'),
+                    meta: {title: '报名信息管理', permission: true}
+                },
+                //留言薄管理
+                {
+                    path: '/feedbackList',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/feedback/FeedbackList.vue'),
+                    meta: {title: '留言薄管理', permission: true}
+                },
+                //系统配置
+                {
+                    path: '/sysConfig',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/SysConf.vue'),
+                    meta: {title: '系统配置', permission: true}
                 },
 
                 {

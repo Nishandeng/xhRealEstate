@@ -7,6 +7,7 @@ export default class dateUtils {
      * @param String format 格式
      */
     static dateFormat (time, format) {
+        if(!time)return;
         let date = time;
         if(time.length == 10){
             date = new Date(parseInt(time) * 1000);
