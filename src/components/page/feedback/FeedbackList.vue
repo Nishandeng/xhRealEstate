@@ -3,8 +3,8 @@
         <div class="container">
             <el-row class="searchForm">
                 <el-form ref="form" :inline="true" :model="query" label-width="120px">
-                    <el-form-item label="姓名">
-                        <el-input v-model="query.name" clearable></el-input>
+                    <el-form-item label="关键词搜索">
+                        <el-input v-model="query.keyword" clearable></el-input>
                     </el-form-item>
                 </el-form>
             </el-row>
