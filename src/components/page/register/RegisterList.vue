@@ -10,7 +10,7 @@
                     </el-button>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleExport">导出
+                    <el-button type="primary" style="width: 150px" icon="el-icon-download" @click="handleExport">导出
                     </el-button>
                 </el-col>
             </el-row>

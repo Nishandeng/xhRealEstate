@@ -1,22 +1,22 @@
 <template>
     <div>
         <div class="container">
-            <el-row class="searchForm">
-                <el-form ref="form" :inline="true" :model="query" label-width="120px">
-                    <el-form-item label="关键词搜索">
-                        <el-input v-model="query.name" clearable></el-input>
-                    </el-form-item>
-                </el-form>
-            </el-row>
+<!--            <el-row class="searchForm">-->
+<!--                <el-form ref="form" :inline="true" :model="query" label-width="120px">-->
+<!--                    <el-form-item label="关键词搜索">-->
+<!--                        <el-input v-model="query.name" clearable></el-input>-->
+<!--                    </el-form-item>-->
+<!--                </el-form>-->
+<!--            </el-row>-->
             <el-row style="margin-bottom: 10px">
                 <el-col :span="4">
                     <el-button type="primary" class="searchBtn" icon="el-icon-plus" @click="handleAddUser">添加
                     </el-button>
                 </el-col>
-                <el-col :span="4" style="text-align: right" :offset="16">
-                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">搜索
-                    </el-button>
-                </el-col>
+<!--                <el-col :span="4" style="text-align: right" :offset="16">-->
+<!--                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">搜索-->
+<!--                    </el-button>-->
+<!--                </el-col>-->
             </el-row>
             <el-table
                     :data="tableData"
