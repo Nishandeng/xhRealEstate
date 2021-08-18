@@ -34,15 +34,15 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination">
-                <el-pagination
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30]"
-                        :page-size="query.pageSize"
-                        layout="total, prev, pager, next"
-                        :total=pageTotal>
-                </el-pagination>
-            </div>
+<!--            <div class="pagination">-->
+<!--                <el-pagination-->
+<!--                        :current-page="currentPage"-->
+<!--                        :page-sizes="[10, 20, 30]"-->
+<!--                        :page-size="query.pageSize"-->
+<!--                        layout="total, prev, pager, next"-->
+<!--                        :total=pageTotal>-->
+<!--                </el-pagination>-->
+<!--            </div>-->
         </div>
 
         <el-dialog
@@ -69,6 +69,16 @@
                 </el-form-item>
                 <el-form-item label="联系人电话">
                     <el-input v-model="form.contactsMobile"></el-input>
+                </el-form-item>
+                <el-form-item label="关联运动">
+                    <el-select v-model="form.sports" multiple placeholder="请选择">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="展示序号">
                     <el-input-number v-model="form.seq"></el-input-number>
@@ -99,19 +109,20 @@
         name: "UserList",
         data() {
             return {
-                options: regionData,
+                regionOptions: regionData,
                 dialogVisible: false,
                 tableData: [],
                 query: {
-                    pageNum: 1,
-                    pageSize: 20,
+                    // pageNum: 1,
+                    // pageSize: 20,
                 },
-                currentPage: 1,
-                pageTotal: 0,
+                // currentPage: 1,
+                // pageTotal: 0,
                 searchForm: {},
                 form: {},
                 title: '',
-                showAlert: false
+                showAlert: false,
+                options:[]
             }
         },
         mounted() {
@@ -124,13 +135,16 @@
             },
             handleAddProject() {
                 this.dialogVisible = true;
-                this.title = '添加项目';
+                this.title = '添加小区';
                 this.form = {};
                 this.showAlert = true;
+                this.getSportList();
             },
             async handleSubmit() {
                 //todo 调用接口保存
-                let res = await this.$api.saveProject({...this.form});
+                let submitData = this.form;
+                submitData.sports = this.form.sports.toString();
+                let res = await this.$api.saveProject({...submitData});
                 const {code, msg} = res.data;
                 if (code == 0) {
                     this.$message.success("保存成功！");
@@ -147,12 +161,11 @@
                 console.log(value)
             },
             async getData() {
-                let res = await this.$api.projectPageList({...this.query});
+                let res = await this.$api.projectPageList();
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)
-                    this.tableData = content.list;
-                    this.pageTotal = content.total;
+                    this.tableData = content
                 } else if (code == 5001) {
                     this.message.error(msg);
                 } else {
@@ -192,10 +205,23 @@
             },
             async handleEdit(user) {
                 this.dialogVisible = true;
-                this.title = '修改项目'
+                this.title = '修改小区'
                 this.form = {...user};
                 this.showAlert = false;
-            }
+            },
+
+            async getSportList() {
+                let res = await this.$api.activityPageList();
+                const {code, msg, content} = res.data;
+                if (code === 0) {
+                    console.log(">>>>>>>>>content", content)
+                    this.options = content;
+                } else if (code == 5001) {
+                    this.message.error(msg);
+                } else {
+                    this.message.error(msg);
+                }
+            },
         }
     }
 </script>

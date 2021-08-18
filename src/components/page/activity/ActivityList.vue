@@ -37,15 +37,15 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination">
-                <el-pagination
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30]"
-                        :page-size="query.pageSize"
-                        layout="total, prev, pager, next"
-                        :total=pageTotal>
-                </el-pagination>
-            </div>
+<!--            <div class="pagination">-->
+<!--                <el-pagination-->
+<!--                        :current-page="currentPage"-->
+<!--                        :page-sizes="[10, 20, 30]"-->
+<!--                        :page-size="query.pageSize"-->
+<!--                        layout="total, prev, pager, next"-->
+<!--                        :total=pageTotal>-->
+<!--                </el-pagination>-->
+<!--            </div>-->
         </div>
 
         <el-dialog
@@ -87,11 +87,11 @@
                 dialogVisible: false,
                 tableData: [],
                 query: {
-                    pageNum: 1,
-                    pageSize: 20,
+                    // pageNum: 1,
+                    // pageSize: 20,
                 },
-                currentPage: 1,
-                pageTotal: 0,
+                // currentPage: 1,
+                // pageTotal: 0,
                 searchForm: {},
                 form: {},
                 title: '',
@@ -107,9 +107,9 @@
                 this.getData();
             },
             handleAddUser() {
-                this.$message.info("添加活动")
+                this.$message.info("添加运动")
                 this.dialogVisible = true;
-                this.title = '添加活动';
+                this.title = '添加运动';
                 this.form = {};
                 this.showAlert = true;
             },
@@ -133,12 +133,11 @@
             },
 
             async getData() {
-                let res = await this.$api.activityPageList({...this.query});
+                let res = await this.$api.activityPageList();
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)
-                    this.tableData = content.list;
-                    this.pageTotal = content.total;
+                    this.tableData = content;
                 } else if (code == 5001) {
                     this.message.error(msg);
                 } else {
@@ -180,7 +179,7 @@
             },
             async handleEdit(user) {
                 this.dialogVisible = true;
-                this.title = '修改活动'
+                this.title = '修改运动'
                 this.form = {...user};
                 this.showAlert = false;
             }

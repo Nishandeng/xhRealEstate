@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <el-form ref="form" style="width: 60%;margin: 0 auto" :model="form" label-width="120px">
-            <!--            <el-form-item label="根路径">-->
-            <!--                <div>{{form.rootUrl}}</div>-->
-            <!--            </el-form-item>-->
+            <el-form-item label="根路径">
+                <el-input class="in" v-model="form.rootUrl"></el-input>
+            </el-form-item>
             <el-form-item label="主页URI">
                 <el-input class="in" v-model="form.homeUri"></el-input>
             </el-form-item>
@@ -39,7 +39,6 @@
             </el-form-item>
         </el-form>
         <div class="footer">
-            <el-button class="btn" @click="dialogVisible = false">取 消</el-button>
             <el-button class="btn" type="primary" @click="handleSubmit">保 存</el-button>
         </div>
     </div>
@@ -52,7 +51,8 @@
         data() {
             return {
                 form: {},
-                imageUrl: ''
+                imageUrl: '',
+                sysConf: {}
             }
         },
         mounted() {
@@ -60,21 +60,26 @@
         },
         methods: {
             async getData() {
-                let res = await this.$api.activityPageList({...this.query});
+                let res = await this.$api.getSysConf();
                 const {code, msg, content} = res.data;
+                console.log(">>>>>>>>>", code, msg, content)
                 if (code === 0) {
-                    console.log(">>>>>>>>>content", content)
-                    this.tableData = content.list;
-                    this.pageTotal = content.total;
+                    this.form = content ? content : {};
                 } else if (code == 5001) {
                     this.message.error(msg);
                 } else {
                     this.message.error(msg);
                 }
             },
-            async handleSubmit(form) {
-                //todo 提交代码
-                console.log(">>>>>>", form)
+            async handleSubmit() {
+                let res = await this.$api.saveSysConf({...this.form});
+                const {code, msg, content} = res.data;
+                if (code === 0) {
+                    this.message.success(content);
+                } else {
+                    this.message.error(msg);
+                }
+                this.getData();
             },
             handleAvatarSuccess(res, file) {
                 this.imageUrl = URL.createObjectURL(file.raw);

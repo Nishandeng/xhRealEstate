@@ -88,7 +88,7 @@
             },
 
             async getData() {
-                let res = await this.$api.userPageList({...this.query});
+                let res = await this.$api.feedbackList({...this.query});
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)

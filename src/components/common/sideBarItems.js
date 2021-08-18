@@ -8,13 +8,13 @@ module.exports = [
     {
         icon: 'el-icon-office-building',
         index: 'projectList',
-        title: '项目管理',
+        title: '小区管理',
         authCode:20
     },
     {
         icon: 'el-icon-wind-power',
         index: 'activityList',
-        title: '活动管理',
+        title: '运动管理',
         authCode:20
     },
     {

@@ -9,12 +9,13 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="param.password" @keyup.enter.native="submitForm()">
+                    <el-input type="password" placeholder="password" v-model="param.password"
+                              @keyup.enter.native="submitForm()">
                         <el-button slot="prepend" icon="el-icon-lock"></el-button>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary"  @click="submitForm()">登录</el-button>
+                    <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -41,18 +42,20 @@
                 let res = await this.$api.login(
                     {
                         account: this.param.account,
-                        password: String(md5(this.param.password)).toLocaleUpperCase(),
+                        password: String(md5(this.param.password)),
                     }
                 );
                 const {code, msg, content} = res.data;
                 if (code == 0) {
-                    localStorage.setItem('ms_username', content.user.account);
-                    localStorage.setItem('user_cate', content.user.category);
-                    localStorage.setItem("userToken",content.token)
-                    this.$router.push('/').catch(err=>err);
-                }else{
+                    console.log(">>>>>>>",content)
+                    localStorage.setItem('ms_username', content.account);
+                    // localStorage.setItem('user_cate', content.user.category);
+                    // localStorage.setItem("userToken", content.token)
+                    this.$router.push('/').catch(err => err);
+                } else {
                     this.$message.success(msg);
                 }
+                this.$router.push('/').catch(err => err);
             },
         },
     };
@@ -65,7 +68,7 @@
         height: 100%;
         background-image: url(../../assets/img/login-bg.jpeg);
         background-repeat: no-repeat;
-        background-size:cover;
+        background-size: cover;
     }
 
     .ms-title {
@@ -91,10 +94,12 @@
     .ms-content {
         padding: 30px 30px;
     }
+
     .login-btn {
         text-align: center;
         padding-top: 30px;
     }
+
     .login-btn button {
         width: 100%;
         height: 36px;

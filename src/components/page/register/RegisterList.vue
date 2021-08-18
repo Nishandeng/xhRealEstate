@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <el-row style="margin-bottom: 10px;" justify="end">
-                <el-col :span="4" >
+                <el-col :span="4">
                     <el-input v-model="query.keyword" clearable></el-input>
                 </el-col>
                 <el-col :span="4" offset="12">
@@ -10,7 +10,7 @@
                     </el-button>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleSearch">导出
+                    <el-button type="primary" style="width: 150px" icon="el-icon-search" @click="handleExport">导出
                     </el-button>
                 </el-col>
             </el-row>
@@ -20,7 +20,11 @@
                     class="table"
                     ref="multipleTable"
                     header-cell-class-name="table-header">
-                <el-table-column prop="commitTime" label="报名时间" align="center"></el-table-column>
+                <el-table-column prop="commitTime" label="报名时间" align="center">
+                    <template slot-scope="scope">
+                        <span>{{$dateUtils.formatimestamp(scope.row.commitTime,'yyyy-MM-dd')}}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="sportName" label="活动名称" align="center"></el-table-column>
                 <el-table-column prop="name" label="姓名" align="center"></el-table-column>
                 <el-table-column prop="mobile" label="手机号" align="center"></el-table-column>
@@ -75,6 +79,8 @@
 
 <script>
     import {regionData} from 'element-china-area-data'
+    import axios from 'axios';
+    import {END_POINT} from "../../../api/paths";
 
     export default {
         name: "UserList",
@@ -106,7 +112,7 @@
                 this.dialogVisible = false
             },
             async getData() {
-                let res = await this.$api.activityPageList({...this.query});
+                let res = await this.$api.listByPage({...this.query});
                 const {code, msg, content} = res.data;
                 if (code === 0) {
                     console.log(">>>>>>>>>content", content)
@@ -127,6 +133,27 @@
                 this.dialogVisible = true;
                 this.title = '修改活动'
                 this.form = {...form};
+            },
+            handleExport() {
+                axios({
+                    method: 'POST',
+                    url: END_POINT+'/xh/sport/registerInfo/export',
+                    data: {},
+                    responseType: 'blob'
+                }).then((res) => {
+                    const link = document.createElement('a')
+                    let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+                    link.style.display = 'none'
+                    link.href = URL.createObjectURL(blob)
+                    // link.download = res.headers['content-disposition'] //下载后文件名
+                    link.download = "报名信息列表"//下载的文件名
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                }).catch(error => {
+                    this.$message.error({ title: '错误', desc: '网络连接错误' })
+                    console.log(error)
+                })
             }
         }
     }
