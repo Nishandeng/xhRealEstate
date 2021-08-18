@@ -44,7 +44,7 @@
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
         >
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" label-suffix=":" :model="form" label-width="80px">
                 <el-form-item label="留言时间">
                     <span>{{$dateUtils.dateFormat(form.commitTime,'Y-m-d')}}</span>
                 </el-form-item>

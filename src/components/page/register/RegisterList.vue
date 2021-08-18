@@ -56,7 +56,7 @@
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
         >
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" label-suffix=":" :model="form" label-width="80px">
                 <el-form-item label="报名时间">
                     <div>{{form.commitTime}}</div>
                 </el-form-item>
