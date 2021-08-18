@@ -19,10 +19,9 @@ const axios = Axios.create({
 //请求拦截器
 axios.interceptors.request.use(
     config => {
-        if (localStorage.getItem("userToken") != null) {
-            config.headers["Access_token"] = localStorage.getItem("userToken");
+        if (localStorage.getItem("token") != null) {
+            config.headers["sessionToken"] = localStorage.getItem("token");
         }
-
         return config;
     },
     err => Promise.reject(err)

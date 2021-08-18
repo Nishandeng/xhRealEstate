@@ -46,16 +46,15 @@
                     }
                 );
                 const {code, msg, content} = res.data;
-                if (code == 0) {
+                if (code ===0) {
                     console.log(">>>>>>>",content)
                     localStorage.setItem('ms_username', content.account);
-                    // localStorage.setItem('user_cate', content.user.category);
+                    localStorage.setItem('token', content.token);
                     // localStorage.setItem("userToken", content.token)
                     this.$router.push('/').catch(err => err);
                 } else {
                     this.$message.success(msg);
                 }
-                this.$router.push('/').catch(err => err);
             },
         },
     };

@@ -136,10 +136,14 @@
             },
             handleExport() {
                 axios({
+                    headers: {
+                        'sessionToken': localStorage.getItem("token")
+                    },
                     method: 'POST',
                     url: END_POINT+'/xh/sport/registerInfo/export',
                     data: {},
-                    responseType: 'blob'
+                    responseType: 'blob',
+
                 }).then((res) => {
                     const link = document.createElement('a')
                     let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
