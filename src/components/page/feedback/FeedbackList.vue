@@ -14,7 +14,7 @@
             <el-table :data="tableData" class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="commitTime" label="留言时间" align="center">
                     <template slot-scope="scope">
-                        <span>{{$dateUtils.dateFormat(scope.row.commitTime,'Y-m-d')}}</span>
+                        <span>{{$dateUtils.formatimestamp(scope.row.commitTime,'yyyy-MM-dd')}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="content" label="留言内容" align="center"></el-table-column>

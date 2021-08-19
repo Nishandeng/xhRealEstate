@@ -8,15 +8,17 @@
                 <el-input class="in" v-model="form.homeUri"></el-input>
             </el-form-item>
             <el-form-item label="主页背景图">
-                <el-upload
-                        class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+<!--                <el-upload-->
+<!--                        class="avatar-uploader"-->
+<!--                        action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--                        :show-file-list="false"-->
+<!--                        :on-success="handleAvatarSuccess"-->
+<!--                        :before-upload="beforeAvatarUpload">-->
+<!--                    <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+<!--                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+<!--                </el-upload>-->
+
+                <el-input class="in" v-model="form.homeBgImgPath"></el-input>
             </el-form-item>
             <el-form-item label="主页海报URI">
                 <el-input class="in" v-model="form.homePosterUri"></el-input>
@@ -25,17 +27,17 @@
                 <el-input class="in" v-model="form.signUpUri"></el-input>
             </el-form-item>
             <el-form-item label="报名页背景图">
-                <!--                <el-input v-model="form.signUpBgImg"></el-input>-->
-                <el-upload
-                        class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-
+                                <el-input v-model="form.signUpBgImg"></el-input>
+<!--                <el-upload-->
+<!--                        class="avatar-uploader"-->
+<!--                        action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--                        :show-file-list="false"-->
+<!--                        :on-success="handleAvatarSuccess"-->
+<!--                        :before-upload="beforeAvatarUpload">-->
+<!--                    <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+<!--                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+<!--                </el-upload>-->
+<!--                <el-input class="in" v-model="form.signUpUri"></el-input>-->
             </el-form-item>
         </el-form>
         <div class="footer">
